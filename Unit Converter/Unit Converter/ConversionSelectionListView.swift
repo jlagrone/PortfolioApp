@@ -12,8 +12,9 @@ import Foundation
 
 
 struct ConversionSelectionListView: View {
+    @EnvironmentObject var dataController: DataController
 
-    let accentColor = Color.red
+    let accentColor = Color.accentColor
 
     @State var showingSettings: Bool = false
 
@@ -29,11 +30,10 @@ struct ConversionSelectionListView: View {
                     }
                 }
                 .navigationTitle("Unit Converter")
-                .navigationBarItems(trailing: Button(action: { showingSettings.toggle()
-
-                }) {
-                    Image(systemName: "gearshape")
-                })
+                .navigationBarItems(
+                    leading:  Button(action: addSampleData ) { Image(systemName: "plus")},
+                    trailing: Button(action: { showingSettings.toggle()
+                }) { Image(systemName: "gearshape") })
             }
             .accentColor(accentColor)
             .foregroundColor(accentColor)
@@ -43,6 +43,10 @@ struct ConversionSelectionListView: View {
         })
     }
 
+    private func addSampleData() {
+            dataController.deleteAll()
+            try? dataController.createSampleData()
+    }
 
 }
 

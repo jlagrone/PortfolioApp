@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ConversionType: CaseIterable {
+enum ConversionType: Int, CaseIterable {
     case length
     case volume
     case temperature
@@ -20,5 +20,9 @@ enum ConversionType: CaseIterable {
             case .length:  return "Length (Distance)"
             default:       return "\(self)".capitalized
         }
+    }
+
+    var int16Value: Int16 {
+        return Int16(self.rawValue)
     }
 }

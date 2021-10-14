@@ -10,5 +10,8 @@ import Foundation
 extension Conversion {
     var conversionDate: Date { date ?? Date() }
 
-
+// TODO: create an example 
+//    static var example: Conversion {
+//
+//    }
 }

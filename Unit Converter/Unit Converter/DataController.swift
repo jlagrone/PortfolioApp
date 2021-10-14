@@ -47,9 +47,9 @@ class DataController: ObservableObject {
          let conversion = Conversion(context: viewContext)
          conversion.type = Int16(Int.random(in: 0...ConversionType.allCases.count))
          conversion.date = Date()
-         conversion.inputUnit = Int16(Int.random(in: 0...13))
+         conversion.inputUnit = UnitTemperature.fahrenheit
          conversion.inputValue = Double.random(in: 0...500.0)
-         conversion.resultUnit = Int16(Int.random(in: 0...13))
+         conversion.resultUnit = UnitTemperature.celsius
          conversion.resultValue = Double.random(in: 0...1500.0)
          conversion.notes = "This conversion is sample \(i)."
       }

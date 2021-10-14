@@ -19,8 +19,8 @@ struct Unit_ConverterApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-              .environment(\.managedObjectContext, dataController.container.viewContext) // for SwiftUI to read dataController
-              .environmentObject(dataController) // our code to read dataController
+                .environment(\.managedObjectContext, dataController.container.viewContext) // for SwiftUI to read dataController
+                .environmentObject(dataController) // our code to read dataController
         }
     }
 }

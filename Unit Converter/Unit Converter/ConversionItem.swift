@@ -24,20 +24,22 @@ struct ConversionItem {
 
     var conversionType: ConversionType
 
-    var value: String = ""
+    var originalValueString: String = ""
+    var originalValue: Double { Double(originalValueString) ?? 0.0 }
     var fromUnits: Dimension = UnitLength.feet
     var toUnits: Dimension = UnitLength.meters
     var fractionPrecision: Double = SettingsDefaults().fractionPrecision
     var significantDigits: Double = SettingsDefaults().significantDigits
     var imageName: String = ""
+    var notes: String = ""
 
     var format: OutputFormat = SettingsDefaults().outputFormat
     var useScientificNotation: Bool = SettingsDefaults().useScientificNotation
 
     var pickerUnits: [Dimension]
 
-    var newValue: String {
-        let oldValue = Measurement(value: Double(value) ?? 0, unit: fromUnits)
+    var newValueString: String {
+        let oldValue = Measurement(value: Double(originalValueString) ?? 0, unit: fromUnits)
         let newValue = oldValue.converted(to: toUnits)
         let formatter = MeasurementFormatter()
         let numberformatter = NumberFormatter()
@@ -58,6 +60,7 @@ struct ConversionItem {
         formatter.unitStyle = .long
         return "\(formatter.string(from: newValue))"
     }
+    var newValue: Double { Double(newValueString) ?? 0.0 }
 
     static func imageName(for type: ConversionType) -> String {
         switch type {
