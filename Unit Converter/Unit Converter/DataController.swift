@@ -45,7 +45,7 @@ class DataController: ObservableObject {
 
       for i in 1...5 {
          let conversion = Conversion(context: viewContext)
-         conversion.type = Int16(Int.random(in: 0...3))
+         conversion.type = Int16(Int.random(in: 0...ConversionType.allCases.count))
          conversion.date = Date()
          conversion.inputUnit = Int16(Int.random(in: 0...13))
          conversion.inputValue = Double.random(in: 0...500.0)

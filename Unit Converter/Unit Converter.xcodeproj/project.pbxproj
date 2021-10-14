@@ -14,6 +14,7 @@
 		051886BC271772E500935AB8 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 051886BA271772E500935AB8 /* Main.xcdatamodeld */; };
 		051886BE2717754800935AB8 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051886BD2717754800935AB8 /* DataController.swift */; };
 		051886C3271780B300935AB8 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 051886C2271780B300935AB8 /* CloudKit.framework */; };
+		051886C527179EF500935AB8 /* DataModelInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051886C427179EF500935AB8 /* DataModelInterface.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		051886BF2717808F00935AB8 /* Unit Converter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Unit Converter.entitlements"; sourceTree = "<group>"; };
 		051886C02717809800935AB8 /* Unit-Converter-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Unit-Converter-Info.plist"; sourceTree = SOURCE_ROOT; };
 		051886C2271780B300935AB8 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		051886C427179EF500935AB8 /* DataModelInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModelInterface.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				051886AE271762FB00935AB8 /* ContentView.swift */,
 				051886BA271772E500935AB8 /* Main.xcdatamodeld */,
 				051886BD2717754800935AB8 /* DataController.swift */,
+				051886C427179EF500935AB8 /* DataModelInterface.swift */,
 				051886B0271762FC00935AB8 /* Assets.xcassets */,
 				051886B2271762FC00935AB8 /* Preview Content */,
 			);
@@ -162,6 +165,7 @@
 				051886BC271772E500935AB8 /* Main.xcdatamodeld in Sources */,
 				051886BE2717754800935AB8 /* DataController.swift in Sources */,
 				051886AF271762FB00935AB8 /* ContentView.swift in Sources */,
+				051886C527179EF500935AB8 /* DataModelInterface.swift in Sources */,
 				051886AD271762FB00935AB8 /* Unit_ConverterApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
