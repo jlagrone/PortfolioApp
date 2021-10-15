@@ -34,6 +34,9 @@ struct ConversionView: View {
             Spacer()
             #endif
         }
+        .onTapGesture(perform: {
+            self.hideKeyboard()
+        })
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 saveButton
@@ -43,7 +46,9 @@ struct ConversionView: View {
         .navigationTitle(navtitle)
         .navigationBarTitleDisplayMode(.automatic)
         .onAppear(perform: {
-            self.item = ConversionItem(conversionType: self.conversionType)
+            if self.item.originalValue == 0 {
+                self.item = ConversionItem(conversionType: self.conversionType)
+            }
         })
 
     }
@@ -66,9 +71,6 @@ struct ConversionView: View {
                 .pickerStyle(MenuPickerStyle())
             }.padding()
         }
-        .onTapGesture(perform: {
-            self.hideKeyboard()
-        })
     }
 
     private var convertToSection: some View {
@@ -86,9 +88,6 @@ struct ConversionView: View {
 
             }.padding()
         }
-        .onTapGesture(perform: {
-            self.hideKeyboard()
-        })
     }
 
     private var formatResultSection: some View {
@@ -130,18 +129,11 @@ struct ConversionView: View {
     private func save() {
         print("save")
         let viewContext = dataController.container.viewContext
-        let conversion = Conversion(context: viewContext)
-        conversion.type = item.conversionType.int16Value
-        conversion.inputValue = item.originalValue
-        conversion.resultValue = item.newValue
-        conversion.inputUnit = item.fromUnits
-        conversion.resultUnit = item.toUnits
-        conversion.notes = item.notes
+        _ = item.makeCoreData(for: viewContext)
         do {
             try viewContext.save()
-        } catch {
-            #warning("This catch needs something less destructive")
-            fatalError("Can't save item data")
+        } catch let error {
+            print("Can't save item data: ", error.localizedDescription)
         }
     }
 }
