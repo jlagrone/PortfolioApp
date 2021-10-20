@@ -67,10 +67,13 @@ class DataController: ObservableObject {
    /// Delete specified object
    /// - Parameter object: object to be deleted
    func delete(_ object: NSManagedObject) {
+       if let _object = object as? Conversion {
+           print("DEBUG_RC: deleting \(_object.conversionTypeString), \(_object.conversionInputValueString)")
+       }
       container.viewContext.delete(object)
    }
 
-   /// Delete all projects in the persistent store. FOR USE WITH TESTING ONLY.
+   /// Delete all projects in the persistent store. 
    func deleteAll() {
       let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Conversion.fetchRequest()
       let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)

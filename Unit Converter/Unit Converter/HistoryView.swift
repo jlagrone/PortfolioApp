@@ -11,24 +11,36 @@ import CoreData
 struct HistoryView: View {
     @EnvironmentObject var dataController: DataController
     @Environment(\.managedObjectContext) var managedObjectContext
-    @FetchRequest<Conversion>(entity: Conversion.entity(), sortDescriptors: [                                                    NSSortDescriptor(keyPath: \Conversion.date, ascending: false) ]) var items: FetchedResults<Conversion>
-//    @State private var refeshingID = UUID()
 
-    static let tag: String? = "HistoryView"
+    @State private var showingSortOrder = false
+    @State private var sortOrder = Conversion.SortOrder.creationDate
+    @State private var sortAscending = true
+    @State private var showingFilterBy = false
+    @State private var filterBy: ConversionType? = nil
+
+    static let tag: String? = "HistoryView" // needed to restore state
+
+    let conversions: FetchRequest<Conversion>
+
+    init() {
+        conversions = FetchRequest<Conversion>(entity: Conversion.entity(), sortDescriptors: [                                                    NSSortDescriptor(keyPath: \Conversion.date, ascending: false) ])
+    }
 
     var body: some View {
         NavigationView {
             List {
+                if let filterBy = filterBy, items.isEmpty  {
+                    Text("Can't find any conversions by \(filterBy.name).")
+                }
                 ForEach(items) { conversion in
                     HistoryItemView(conversionItem: conversion)
                 }
                 .onDelete(perform: deleteItem)
-//                .id(refeshingID)
             }
             .listStyle(InsetGroupedListStyle())
             .navigationTitle("History")
             .toolbar {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
                     sortButton
                     filterButton
                 }
@@ -36,31 +48,69 @@ struct HistoryView: View {
                     clearButton
                 }
             }
+            .confirmationDialog("Select sort order", isPresented: $showingSortOrder, titleVisibility: .visible) { sortConfirmationDialogButtons }
+            .confirmationDialog("Filter by", isPresented: $showingFilterBy, titleVisibility: .visible) { filterConfirmationDialogButtons }
         }
     }
 
     private var clearButton: some View {
-        Button("Clear", action: clearDataBase)
+        Button(action: clearDataBase) {
+            Image(systemName: "trash")
+        }
     }
 
     private var sortButton: some View {
-        Button(action: self.sortList) {
+        Button(action: { showingSortOrder.toggle() } ) {
             Image(systemName: "arrow.up.arrow.down.circle")
         }
     }
 
+    private var filterButtonImageName: String {
+        (filterBy == nil) ? "line.3.horizontal.decrease.circle" : "line.3.horizontal.decrease.circle.fill"
+    }
     private var filterButton: some View {
-        Button(action: self.filterList) {
-            Image(systemName: "line.3.horizontal.decrease.circle")
+        Button(action: { showingFilterBy.toggle() } ) {
+            Image(systemName: filterButtonImageName)
         }
     }
 
-    func filterList() {
-        print("filter list")
+    private var sortConfirmationDialogButtons: some View {
+        Group {
+            Button("Creation Date (Ascending)") { sortOrder = .creationDate; sortAscending = true }
+            Button("Creation Date (Descending)") { sortOrder = .creationDate; sortAscending = false }
+            Button("Conversion Type (Ascending)") { sortOrder = .conversionType; sortAscending = true }
+            Button("Conversion Type (Descending)") { sortOrder = .conversionType; sortAscending = false }
+            Button("Cancel", role: .cancel) { }
+        }
     }
 
-    func sortList() {
-        print("sort list")
+    private var filterConfirmationDialogButtons: some View {
+        Group {
+            Button("None") { filterBy = nil }
+            ForEach(ConversionType.allCases, id: \.rawValue) { type in
+                Button(type.name) { self.filterBy = type }
+            }
+            Button("Cancel", role: .cancel) { }
+        }
+    }
+
+
+    private var items: [Conversion] {
+        var array: [Conversion]
+        switch sortOrder {
+            case .creationDate:
+                array = conversions.wrappedValue.sorted(by: \Conversion.conversionDate,
+                                                       ascending: sortAscending)
+            case .conversionType:
+                array = conversions.wrappedValue.sorted(by: \Conversion.conversionType,
+                                                       ascending: sortAscending)
+        }
+
+        if let filterBy = filterBy {
+            return array.filter { $0.conversionType == filterBy }
+        }
+
+        return array
     }
 
     func deleteItem(offsets: IndexSet) {
@@ -69,6 +119,7 @@ struct HistoryView: View {
         withAnimation {
             for offset in offsets {
                 let item = allItems[offset]
+                print("DEBUG_RC", item.conversionType.name)
                 dataController.delete(item)
             }
 
@@ -81,7 +132,6 @@ struct HistoryView: View {
         dataController.deleteAll()
         dataController.save()
         dataController.container.viewContext.reset()
-//        self.refeshingID = UUID()
     }
     
 }

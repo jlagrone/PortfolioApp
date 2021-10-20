@@ -17,8 +17,12 @@ import Foundation
 //      type        int16       (length, mass, volume, temperature, etc.)
 
 extension Conversion {
-
     // Most of these are helpers to unwrap optionals from Core Data
+
+
+    enum SortOrder {
+        case creationDate, conversionType
+    }
 
     // MARK: - Date
     var conversionDate: Date { date ?? Date("1/1/1970") }
