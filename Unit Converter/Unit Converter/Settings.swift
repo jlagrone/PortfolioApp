@@ -65,3 +65,16 @@ final class SettingsDefaults: ObservableObject {
     }
 
 }
+
+enum OutputFormat: Int, CaseIterable, Identifiable {
+    case decimalPlaces = 0
+    case significantDigits
+
+    static var strings: [String] {
+        ["Decimal digits", "Significant Digits"]
+    }
+
+    static var range = 0..<Int(strings.count)
+
+    var id: Int { self.rawValue }
+}
