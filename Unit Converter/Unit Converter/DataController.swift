@@ -26,7 +26,8 @@ class DataController: ObservableObject {
       }
    }
 
-   static var preview: DataController = {
+    /// For use in SwiftUI previews
+    static var preview: DataController = {
       let dataController = DataController(inMemory: true)
 
       do {

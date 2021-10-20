@@ -25,7 +25,7 @@ struct ConversionSelectionListView: View {
             NavigationView {
                 List(ConversionType.allCases, id: \.self) { type in
                     NavigationLink(destination: ConversionView(type: type)) {
-                        Label(type.string, systemImage: imageName(for: type))
+                        Label(type.string, systemImage: type.imageName)
                             .foregroundColor(accentColor)
                     }
                 }
@@ -48,15 +48,6 @@ struct ConversionSelectionListView: View {
             try? dataController.createSampleData()
     }
 
-    func imageName(for type: ConversionType) -> String {
-        switch type {
-            case .length: return LengthUnits.imageName
-            case .volume: return VolumeUnits.imageName
-            case .temperature: return TemperatureUnits.imageName
-            case .weight: return MassUnits.imageName
-            case .pressure: return PressureUnits.imageName
-        }
-    }
 
 
 }

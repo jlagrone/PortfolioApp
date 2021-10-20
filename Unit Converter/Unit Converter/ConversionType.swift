@@ -23,6 +23,7 @@ enum ConversionType: Int, CaseIterable, Comparable {
         }
     }
 
+    /// For Core Data interoperability
     var int16Value: Int16 {
         return Int16(self.rawValue)
     }
@@ -30,6 +31,18 @@ enum ConversionType: Int, CaseIterable, Comparable {
     var name: String {
         ("\(self)" as String).capitalized
     }
+
+    // This tightly couples this enum with associated structs.
+    var imageName: String {
+        switch self {
+            case .length: return LengthUnits.imageName
+            case .volume: return VolumeUnits.imageName
+            case .temperature: return TemperatureUnits.imageName
+            case .weight: return MassUnits.imageName
+            case .pressure: return PressureUnits.imageName
+        }
+    }
+
 }
 
 extension ConversionType {

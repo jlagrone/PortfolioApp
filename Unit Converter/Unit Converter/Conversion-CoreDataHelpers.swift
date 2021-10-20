@@ -7,7 +7,7 @@
 
 import Foundation
 
-//  Conversion:
+//  Conversion properties in Core Data model:
 //      date        Date
 //      inputUnit   String      (ft, m, L, ºC, kg, etc.)
 //      inputValue  Double
@@ -18,7 +18,6 @@ import Foundation
 
 extension Conversion {
     // Most of these are helpers to unwrap optionals from Core Data
-
 
     enum SortOrder {
         case creationDate, conversionType

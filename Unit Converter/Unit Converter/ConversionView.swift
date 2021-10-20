@@ -19,6 +19,7 @@ struct ConversionView: View {
     @State private var useScientificNotation: Bool = SettingsDefaults().useScientificNotation
 
 
+    /// Compute the conversion of `inputValue` from `fromUnit` to `toUnit`
     private var resultValue: String {
         let oldValue = Measurement(value: Double(inputValue) ?? 0, unit: fromUnit)
         let newValue = oldValue.converted(to: toUnit)
@@ -44,10 +45,12 @@ struct ConversionView: View {
         let valueString = numberformatter.string(from: newValue.value as NSNumber) ?? ""
         return "\(valueString)"
     }
-    
+
+    /// Types are length, temperature, volume, weight/mass, pressure
+    ///     This makes the default length.
     var conversionType: ConversionType = .length
 
-
+    // MARK: - Initializers
     /// Initializer for existing (previous) conversion
     /// - Parameters:
     ///   - item: a `Conversion` (possibly from HistoryView)
@@ -65,14 +68,11 @@ struct ConversionView: View {
         self.conversionType = type
         _fromUnit = State(wrappedValue: defaultFromUnit)
         _toUnit = State(wrappedValue: defaultToUnit)
-
     }
 
+    var navtitle: String { self.conversionType.name }
 
-    var navtitle: String {
-        "\(self.conversionType)".capitalized
-    }
-
+    // MARK: - Views
     var body: some View {
         Form {
             // Section for original value and units
@@ -87,24 +87,21 @@ struct ConversionView: View {
             // Section for toggling scientific notation
             notationSection
 
-            #if os(macOS)
-            Spacer()
-            #endif
         }
         .onTapGesture(perform: {
             self.hideKeyboard()
         })
         .toolbar {
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
-//                saveButton
+//            ToolbarItemGroup(placement: .navigationBarTrailing) {
                 keyBoardButton
-            }
+//            }
         }
         .navigationTitle(navtitle)
         .onDisappear(perform: save)
         .navigationBarTitleDisplayMode(.automatic)
 
     }
+
     private var convertFromSection: some View {
         Section(header: Text("Convert").textCase(.uppercase) ) {
             HStack {
@@ -171,9 +168,7 @@ struct ConversionView: View {
         }
     }
 
-    private var saveButton: some View {
-        Button("Save", action: self.save)
-    }
+    // MARK: - Other properties
 
     private var defaultFromUnit: Dimension {
         switch conversionType {
@@ -205,8 +200,13 @@ struct ConversionView: View {
         }
     }
 
+    // MARK: - Other Methods
 
+    /// Save this conversion to the history
     private func save() {
+        // user didn't enter value into TextField, nothing to save
+        if inputValue.isEmpty { return }
+
         let viewContext = dataController.container.viewContext
         let conversion = Conversion(context: viewContext)
         conversion.date = Date()
