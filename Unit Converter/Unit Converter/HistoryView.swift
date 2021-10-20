@@ -26,18 +26,41 @@ struct HistoryView: View {
 //                .id(refeshingID)
             }
             .listStyle(InsetGroupedListStyle())
-            .navigationTitle("Conversion History")
+            .navigationTitle("History")
             .toolbar {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    sortButton
+                    filterButton
+                }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     clearButton
                 }
             }
         }
-
     }
 
     private var clearButton: some View {
         Button("Clear", action: clearDataBase)
+    }
+
+    private var sortButton: some View {
+        Button(action: self.sortList) {
+            Image(systemName: "arrow.up.arrow.down.circle")
+        }
+    }
+
+    private var filterButton: some View {
+        Button(action: self.filterList) {
+            Image(systemName: "line.3.horizontal.decrease.circle")
+        }
+    }
+
+    func filterList() {
+        print("filter list")
+    }
+
+    func sortList() {
+        print("sort list")
     }
 
     func deleteItem(offsets: IndexSet) {
