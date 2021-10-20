@@ -27,17 +27,20 @@ final class SettingsDefaults: ObservableObject {
         }
     }
 
+    /// Use decimal places or significant digits
     @Published var outputFormat: OutputFormat {
         didSet { UserDefaults.standard.setValue(outputFormat.rawValue, forKey: outputFormatKey)
             print("setting \(#function): \(outputFormat)")
         }
     }
 
+    /// Number of significant digits
     @Published var significantDigits: Double {
         didSet { UserDefaults.standard.setValue(significantDigits, forKey: significantDigitsKey)
             print("setting \(#function): \(significantDigits)") }
     }
 
+    /// Number of digits after decimal place
     @Published var fractionPrecision: Double {
         didSet { UserDefaults.standard.setValue(fractionPrecision, forKey: fractionPrecisionKey)
             print("setting \(#function): \(fractionPrecision)") }

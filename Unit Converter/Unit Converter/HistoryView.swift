@@ -6,35 +6,61 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct HistoryView: View {
-    let pastConversions: FetchRequest<Conversion>
+    @EnvironmentObject var dataController: DataController
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest<Conversion>(entity: Conversion.entity(), sortDescriptors: [                                                    NSSortDescriptor(keyPath: \Conversion.date, ascending: false) ]) var items: FetchedResults<Conversion>
+//    @State private var refeshingID = UUID()
 
-    init() {
-        pastConversions = FetchRequest<Conversion>(entity: Conversion.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Conversion.date, ascending: false)], predicate: nil, animation: nil)
-    }
+    static let tag: String? = "HistoryView"
 
     var body: some View {
         NavigationView {
             List {
-                ForEach(pastConversions.wrappedValue) { conversion in
-                    HStack {
-                        Text("\(getString(from: conversion.conversionDate))")
-                        Text(conversion.notes ?? "Huh?")
-                    }
+                ForEach(items) { conversion in
+                    HistoryItemView(conversionItem: conversion)
                 }
+                .onDelete(perform: deleteItem)
+//                .id(refeshingID)
             }
             .listStyle(InsetGroupedListStyle())
             .navigationTitle("Conversion History")
+            .toolbar {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    clearButton
+                }
+            }
         }
+
     }
 
-    private func getString(from date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .short
-        return formatter.string(from: date)
+    private var clearButton: some View {
+        Button("Clear", action: clearDataBase)
     }
+
+    func deleteItem(offsets: IndexSet) {
+        let allItems = items
+
+        withAnimation {
+            for offset in offsets {
+                let item = allItems[offset]
+                dataController.delete(item)
+            }
+
+            dataController.save()
+        }
+
+    }
+
+    private func clearDataBase() {
+        dataController.deleteAll()
+        dataController.save()
+        dataController.container.viewContext.reset()
+//        self.refeshingID = UUID()
+    }
+    
 }
 
 struct HistoryView_Previews: PreviewProvider {

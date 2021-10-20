@@ -30,6 +30,8 @@
 		051886E42718AF2500935AB8 /* ConversionSelectionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051886DF2718AF2500935AB8 /* ConversionSelectionListView.swift */; };
 		051886E62718B1BE00935AB8 /* FormatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051886E52718B1BE00935AB8 /* FormatView.swift */; };
 		051886E82718B52C00935AB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 051886E72718B52C00935AB8 /* Assets.xcassets */; };
+		051886EA2718F2FA00935AB8 /* HistoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051886E92718F2FA00935AB8 /* HistoryItemView.swift */; };
+		051886EC271A0B6A00935AB8 /* Date-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051886EB271A0B6A00935AB8 /* Date-Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +61,8 @@
 		051886DF2718AF2500935AB8 /* ConversionSelectionListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversionSelectionListView.swift; sourceTree = "<group>"; };
 		051886E52718B1BE00935AB8 /* FormatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatView.swift; sourceTree = "<group>"; };
 		051886E72718B52C00935AB8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../Unit Converter/Shared/Assets.xcassets"; sourceTree = "<group>"; };
+		051886E92718F2FA00935AB8 /* HistoryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryItemView.swift; sourceTree = "<group>"; };
+		051886EB271A0B6A00935AB8 /* Date-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date-Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,24 +97,26 @@
 		051886AB271762FB00935AB8 /* Unit Converter */ = {
 			isa = PBXGroup;
 			children = (
-				051886CC2718AA2D00935AB8 /* Units Types */,
-				051886C02717809800935AB8 /* Unit-Converter-Info.plist */,
 				051886BF2717808F00935AB8 /* Unit Converter.entitlements */,
-				051886AC271762FB00935AB8 /* Unit_ConverterApp.swift */,
-				051886D92718AB3D00935AB8 /* ConversionType.swift */,
-				051886CA271885A800935AB8 /* Conversion-CoreDataHelpers.swift */,
-				051886BA271772E500935AB8 /* Main.xcdatamodeld */,
-				051886BD2717754800935AB8 /* DataController.swift */,
+				051886C02717809800935AB8 /* Unit-Converter-Info.plist */,
 				051886AE271762FB00935AB8 /* ContentView.swift */,
-				051886E52718B1BE00935AB8 /* FormatView.swift */,
-				051886C6271875A200935AB8 /* HomeView.swift */,
-				051886C82718767500935AB8 /* HistoryView.swift */,
+				051886CA271885A800935AB8 /* Conversion-CoreDataHelpers.swift */,
 				051886DD2718AF2500935AB8 /* ConversionItem.swift */,
 				051886DF2718AF2500935AB8 /* ConversionSelectionListView.swift */,
+				051886D92718AB3D00935AB8 /* ConversionType.swift */,
 				051886DE2718AF2500935AB8 /* ConversionView.swift */,
+				051886BD2717754800935AB8 /* DataController.swift */,
+				051886EB271A0B6A00935AB8 /* Date-Extension.swift */,
+				051886E52718B1BE00935AB8 /* FormatView.swift */,
+				051886E92718F2FA00935AB8 /* HistoryItemView.swift */,
+				051886C82718767500935AB8 /* HistoryView.swift */,
+				051886C6271875A200935AB8 /* HomeView.swift */,
 				051886DC2718AF2500935AB8 /* Settings.swift */,
 				051886DB2718AF2500935AB8 /* SettingsView.swift */,
+				051886AC271762FB00935AB8 /* Unit_ConverterApp.swift */,
+				051886CC2718AA2D00935AB8 /* Units Types */,
 				051886E72718B52C00935AB8 /* Assets.xcassets */,
+				051886BA271772E500935AB8 /* Main.xcdatamodeld */,
 				051886B2271762FC00935AB8 /* Preview Content */,
 			);
 			path = "Unit Converter";
@@ -222,6 +228,7 @@
 				051886CB271885A800935AB8 /* Conversion-CoreDataHelpers.swift in Sources */,
 				051886D72718AA5900935AB8 /* PressureUnits.swift in Sources */,
 				051886E32718AF2500935AB8 /* ConversionView.swift in Sources */,
+				051886EA2718F2FA00935AB8 /* HistoryItemView.swift in Sources */,
 				051886E62718B1BE00935AB8 /* FormatView.swift in Sources */,
 				051886D82718AA5900935AB8 /* TemperatureUnits.swift in Sources */,
 				051886C92718767500935AB8 /* HistoryView.swift in Sources */,
@@ -229,6 +236,7 @@
 				051886BE2717754800935AB8 /* DataController.swift in Sources */,
 				051886AF271762FB00935AB8 /* ContentView.swift in Sources */,
 				051886E12718AF2500935AB8 /* Settings.swift in Sources */,
+				051886EC271A0B6A00935AB8 /* Date-Extension.swift in Sources */,
 				051886E42718AF2500935AB8 /* ConversionSelectionListView.swift in Sources */,
 				051886C7271875A200935AB8 /* HomeView.swift in Sources */,
 				051886AD271762FB00935AB8 /* Unit_ConverterApp.swift in Sources */,

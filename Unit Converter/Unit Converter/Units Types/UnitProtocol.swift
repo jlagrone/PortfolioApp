@@ -15,6 +15,7 @@ protocol UnitProtocol {
 
 extension UnitProtocol {
 
+    /// United States, Belize, and Myanmar (Burma) are still not on metric
     static var usesImperial: Bool {
         return ["US", "BZ", "MM"].contains(Locale.current.regionCode)
     }

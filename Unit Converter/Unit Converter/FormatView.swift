@@ -9,7 +9,6 @@ import SwiftUI
 
 struct FormatView: View {
 
-//    @Binding var item: ConversionItem
     @Binding var format: OutputFormat
     @Binding var significantDigits: Double
     @Binding var fractionPrecision: Double

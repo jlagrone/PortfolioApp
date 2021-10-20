@@ -9,12 +9,69 @@ import SwiftUI
 
 struct ConversionView: View {
     @EnvironmentObject var dataController: DataController
-    @State var item: ConversionItem = ConversionItem(conversionType: .length)
+    @State private var inputValue: String = ""
+    @State private var fromUnit: Dimension = UnitLength.feet
+//    @State private var resultValue: String
+    @State private var toUnit: Dimension = UnitLength.meters
+    @State private var format: OutputFormat = SettingsDefaults().outputFormat
+    @State private var fractionPrecision: Double = SettingsDefaults().fractionPrecision
+    @State private var significantDigits: Double = SettingsDefaults().significantDigits
+    @State private var useScientificNotation: Bool = SettingsDefaults().useScientificNotation
+
+
+    private var resultValue: String {
+        let oldValue = Measurement(value: Double(inputValue) ?? 0, unit: fromUnit)
+        let newValue = oldValue.converted(to: toUnit)
+        let numberformatter = NumberFormatter()
+        numberformatter.roundingMode = .halfUp
+
+        switch format {
+            case .decimalPlaces:
+                numberformatter.maximumFractionDigits = Int(fractionPrecision)
+            case .significantDigits:
+                numberformatter.usesSignificantDigits = true
+                numberformatter.maximumSignificantDigits = Int(significantDigits)
+        }
+
+        if useScientificNotation { numberformatter.numberStyle = .scientific }
+
+        /* Bug reported: FB9708766
+        let formatter = MeasurementFormatter()
+        formatter.numberFormatter = numberformatter
+        formatter.unitOptions = .providedUnit
+        formatter.unitStyle = .long
+         */
+        let valueString = numberformatter.string(from: newValue.value as NSNumber) ?? ""
+        return "\(valueString)"
+    }
+    
+    var conversionType: ConversionType = .length
+
+
+    /// Initializer for existing (previous) conversion
+    /// - Parameters:
+    ///   - item: a `Conversion` (possibly from HistoryView)
+    ///   - type: length, temperature, weight/mass, pressure, or volume
+    init(item: Conversion, type: ConversionType) {
+        self.conversionType = type
+        _inputValue = State(wrappedValue: item.conversionInputValueString)
+        _fromUnit = State(wrappedValue: item.conversionInputUnit)
+        _toUnit = State(wrappedValue: item.conversionResultUnit)
+    }
+
+    /// Initializer for new conversion
+    /// - Parameter type: length, temperature, weight/mass, pressure, or volume
+    init(type: ConversionType) {
+        self.conversionType = type
+        _fromUnit = State(wrappedValue: defaultFromUnit)
+        _toUnit = State(wrappedValue: defaultToUnit)
+
+    }
+
 
     var navtitle: String {
-        "\(item.conversionType)".capitalized
+        "\(self.conversionType)".capitalized
     }
-    var conversionType: ConversionType
 
     var body: some View {
         Form {
@@ -39,34 +96,26 @@ struct ConversionView: View {
         })
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                saveButton
+//                saveButton
                 keyBoardButton
             }
         }
         .navigationTitle(navtitle)
+        .onDisappear(perform: save)
         .navigationBarTitleDisplayMode(.automatic)
-        .onAppear(perform: {
-            if self.item.originalValue == 0 {
-                self.item = ConversionItem(conversionType: self.conversionType)
-            }
-        })
 
     }
-
     private var convertFromSection: some View {
         Section(header: Text("Convert").textCase(.uppercase) ) {
             HStack {
-                #if os(iOS)
-                TextField("Value", text: $item.originalValueString)
+                TextField("Value", text: $inputValue)
                     .keyboardType(.decimalPad)
-                #else
-                TextField("Value", text: $item.value)
-                #endif
-                Picker("\(item.fromUnits.symbol)", selection: $item.fromUnits){
-                    ForEach(item.pickerUnits, id: \.self) { unit in
+                Picker("\(fromUnit.symbol)", selection: $fromUnit){
+                    ForEach(pickerUnits, id: \.self) { unit in
                         Text("\(unit.symbol)")
                     }
                 }
+                .id(fromUnit)
                 .labelsHidden()
                 .pickerStyle(MenuPickerStyle())
             }.padding()
@@ -76,13 +125,14 @@ struct ConversionView: View {
     private var convertToSection: some View {
         Section(header: Text("To").textCase(.uppercase) ) {
             HStack{
-                Text(item.newValueString)
+                Text(resultValue)
                 Spacer()
-                Picker("\(item.toUnits.symbol.description)", selection: $item.toUnits){
-                    ForEach(item.pickerUnits, id: \.self) { unit in
+                Picker("\(toUnit.symbol.description)", selection: $toUnit){
+                    ForEach(pickerUnits, id: \.self) { unit in
                         Text("\(unit.symbol)")
                     }
                 }
+                .id(toUnit)
                 .labelsHidden()
                 .pickerStyle(MenuPickerStyle())
 
@@ -93,25 +143,25 @@ struct ConversionView: View {
     private var formatResultSection: some View {
         Section(header: Text("Format Result")) {
 
-            Picker("Result Format", selection: $item.format) {
+            Picker("Result Format", selection: $format) {
                 Text("Decimal Places").tag(OutputFormat.decimalPlaces)
                 Text("Significant Digits").tag(OutputFormat.significantDigits)
             }
-            .onChange(of: item.format) { value in
+            .onChange(of: format) { value in
                 self.hideKeyboard()
             }
             .pickerStyle(SegmentedPickerStyle())
 
-            FormatView(format: $item.format,
-                       significantDigits: $item.significantDigits,
-                       fractionPrecision: $item.fractionPrecision)
+            FormatView(format: $format,
+                       significantDigits: $significantDigits,
+                       fractionPrecision: $fractionPrecision)
         }
 
     }
 
     private var notationSection: some View {
         Section(header: Text("Notation")) {
-            Toggle("Scientific Notation", isOn: $item.useScientificNotation).accentColor(.red)
+            Toggle("Scientific Notation", isOn: $useScientificNotation).accentColor(.red)
         }
     }
 
@@ -125,16 +175,54 @@ struct ConversionView: View {
         Button("Save", action: self.save)
     }
 
+    private var defaultFromUnit: Dimension {
+        switch conversionType {
+            case .length: return UnitLength.feet
+            case .volume: return UnitVolume.gallons
+            case .temperature: return UnitTemperature.fahrenheit
+            case .weight: return UnitMass.pounds
+            case .pressure: return UnitPressure.inchesOfMercury
+        }
+    }
+
+    private var defaultToUnit: Dimension {
+        switch conversionType {
+            case .length: return UnitLength.meters
+            case .volume: return UnitVolume.liters
+            case .temperature: return UnitTemperature.celsius
+            case .weight: return UnitMass.kilograms
+            case .pressure: return UnitPressure.millibars
+        }
+    }
+
+    private var pickerUnits: [Dimension] {
+        switch conversionType {
+            case .length: return LengthUnits.all
+            case .volume: return VolumeUnits.all
+            case .temperature: return TemperatureUnits.all
+            case .weight: return MassUnits.all
+            case .pressure: return PressureUnits.all
+        }
+    }
+
 
     private func save() {
-        print("save")
         let viewContext = dataController.container.viewContext
-        _ = item.makeCoreData(for: viewContext)
+        let conversion = Conversion(context: viewContext)
+        conversion.date = Date()
+        conversion.type = self.conversionType.int16Value
+        conversion.inputValue = Double(self.inputValue) ?? 0.0
+        conversion.inputUnit = self.fromUnit.symbol
+        conversion.resultValue = Double(self.resultValue) ?? 0.0
+        conversion.resultUnit = self.toUnit.symbol
+        conversion.notes = "self.notes"
+
         do {
             try viewContext.save()
         } catch let error {
             print("Can't save item data: ", error.localizedDescription)
         }
+        dataController.save()
     }
 }
 
@@ -151,8 +239,8 @@ extension View {
 struct ConversionView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ConversionView(conversionType:  .length)
-            ConversionView(conversionType:  .volume)
+            ConversionView(type:  .length)
+            ConversionView(type:  .volume)
         }
     }
 }

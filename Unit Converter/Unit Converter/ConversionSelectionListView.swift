@@ -14,18 +14,18 @@ import Foundation
 struct ConversionSelectionListView: View {
     @EnvironmentObject var dataController: DataController
 
+    static let tag: String? = "ConversionSelectionListView"
+
     let accentColor = Color.accentColor
 
     @State var showingSettings: Bool = false
-
-    @State var item: ConversionItem? = nil
 
     var body: some View {
         ZStack {
             NavigationView {
                 List(ConversionType.allCases, id: \.self) { type in
-                    NavigationLink(destination: ConversionView(conversionType: type)) {
-                        Label(type.string, systemImage: ConversionItem.imageName(for: type))
+                    NavigationLink(destination: ConversionView(type: type)) {
+                        Label(type.string, systemImage: imageName(for: type))
                             .foregroundColor(accentColor)
                     }
                 }
@@ -48,12 +48,23 @@ struct ConversionSelectionListView: View {
             try? dataController.createSampleData()
     }
 
+    func imageName(for type: ConversionType) -> String {
+        switch type {
+            case .length: return LengthUnits.imageName
+            case .volume: return VolumeUnits.imageName
+            case .temperature: return TemperatureUnits.imageName
+            case .weight: return MassUnits.imageName
+            case .pressure: return PressureUnits.imageName
+        }
+    }
+
+
 }
 
 struct ConversionSelectionListView_Previews: PreviewProvider {
 
     static var previews: some View {
-        ConversionSelectionListView(item: ConversionItem(conversionType: .volume))
+        ConversionSelectionListView()
     }
 }
 

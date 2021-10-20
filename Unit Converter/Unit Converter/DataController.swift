@@ -43,14 +43,14 @@ class DataController: ObservableObject {
    func createSampleData() throws {
       let viewContext = container.viewContext
 
-      for i in 1...5 {
+      for i in 0...4 {
          let conversion = Conversion(context: viewContext)
-         conversion.type = Int16(Int.random(in: 0...ConversionType.allCases.count))
+         conversion.type = Int16(Int.random(in: 0..<ConversionType.allCases.count))
          conversion.date = Date()
-         conversion.inputUnit = UnitTemperature.fahrenheit
+         conversion.inputUnit = UnitTemperature.fahrenheit.symbol
          conversion.inputValue = Double.random(in: 0...500.0)
-         conversion.resultUnit = UnitTemperature.celsius
-         conversion.resultValue = Double.random(in: 0...1500.0)
+         conversion.resultValue = Double.pi * Double.random(in: 0...5)
+         conversion.resultUnit = UnitTemperature.celsius.symbol
          conversion.notes = "This conversion is sample \(i)."
       }
 
