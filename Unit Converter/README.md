@@ -1,2 +1,5 @@
 # PortfolioApp
-An app demonstrating how I write code. 
+I created Unit Converter to demonstrate my use of 
+* Swift
+* Swiftui
+*  
