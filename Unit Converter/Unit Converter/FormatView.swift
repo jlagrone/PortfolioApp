@@ -17,6 +17,8 @@ struct FormatView: View {
     var lowerLimitSignificant = 1.0
     var upperLimit = 10.0
 
+    let DIGITS_STRING = NSLocalizedString("digits after decimal", comment: "in Format View: 'digits after decimal'")
+
     var body: some View {
         if format == .decimalPlaces {
             return AnyView (
@@ -30,7 +32,7 @@ struct FormatView: View {
 
                         Text("\(Int(upperLimit))").font(.caption)
                     }
-                    Text("\(Int(fractionPrecision)) digits after decimal")
+                    Text("\(Int(fractionPrecision)) \(DIGITS_STRING)")
                         .font(.caption)
                 }
             )

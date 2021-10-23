@@ -30,7 +30,7 @@ struct HistoryView: View {
         NavigationView {
             List {
                 if let filterBy = filterBy, items.isEmpty  {
-                    Text("Can't find any conversions by \(filterBy.name).")
+                    Text("Can't find any conversions by \(filterBy.string).")
                 }
                 ForEach(items) { conversion in
                     HistoryItemView(conversionItem: conversion)
@@ -88,7 +88,7 @@ struct HistoryView: View {
         Group {
             Button("None") { filterBy = nil }
             ForEach(ConversionType.allCases, id: \.rawValue) { type in
-                Button(type.name) { self.filterBy = type }
+                Button(type.string) { self.filterBy = type }
             }
             Button("Cancel", role: .cancel) { }
         }
@@ -119,7 +119,7 @@ struct HistoryView: View {
         withAnimation {
             for offset in offsets {
                 let item = allItems[offset]
-                print("DEBUG_RC", item.conversionType.name)
+                print("DEBUG_RC", item.conversionType.string)
                 dataController.delete(item)
             }
 

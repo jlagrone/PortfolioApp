@@ -18,21 +18,27 @@ enum ConversionType: Int, CaseIterable, Comparable {
 
     var string: String {
         switch self {
-            case .mass:  return NSLocalizedString("Weight (Mass)", comment: "ConversionType to string")
-            case .length:  return "Length (Distance)"
-            case .temperature: return "Temperature"
-            case .volume: return "Volume"
-            case .pressure: return "Pressure"
+            case .mass:
+                return NSLocalizedString("Weight (Mass)",
+                                         comment: "ConversionType to string")
+            case .length:
+                return NSLocalizedString("Length (Distance)",
+                                         comment: "ConversionType to string")
+            case .temperature:
+                return NSLocalizedString("Temperature",
+                                         comment: "ConversionType to string")
+            case .volume:
+                return NSLocalizedString("Volume",
+                                         comment: "ConversionType to string")
+            case .pressure:
+                return NSLocalizedString("Pressure",
+                                         comment: "ConversionType to string")
         }
     }
 
     /// For Core Data interoperability
     var int16Value: Int16 {
         return Int16(self.rawValue)
-    }
-
-    var name: String {
-        ("\(self)" as String).capitalized
     }
 
     // This tightly couples this enum with associated structs.

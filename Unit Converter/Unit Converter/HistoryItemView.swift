@@ -12,7 +12,8 @@ struct HistoryItemView: View {
     var conversionItem: Conversion
 
     var mainText: String {
-        "\(conversionItem.conversionInputAsString) to \(String(describing: conversionItem.conversionResultAsString))"
+        let TO_STRING = NSLocalizedString("to", comment: "'to' in History Item View")
+        return "\(conversionItem.conversionInputAsString) \(TO_STRING) \(String(describing: conversionItem.conversionResultAsString))"
     }
 
     var body: some View {

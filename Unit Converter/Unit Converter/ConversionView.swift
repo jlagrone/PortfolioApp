@@ -70,7 +70,7 @@ struct ConversionView: View {
         _toUnit = State(wrappedValue: defaultToUnit)
     }
 
-    var navtitle: String { self.conversionType.name }
+    var navtitle: String { self.conversionType.string }
 
     // MARK: - Views
     var body: some View {
