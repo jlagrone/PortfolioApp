@@ -1,0 +1,74 @@
+/* 
+  Localizable.strings
+  Unit Converter
+
+  Created by James LaGrone on 10/23/21.
+  
+*/
+
+
+/* Tab bar tab names */
+"Convert" = "Convert";
+"History" = "History";
+
+
+/* Settings view */
+"Settings" = "Settings";
+
+"Format Result" = "Format Result";
+"Decimal Places" = "Decimal Places";
+"Significant Digits" = "Significant Digits";
+"Digits After Decimal" = "Digits After Decimal";
+
+"Notation" = "Notation";
+"Scientific Notation" = "Scientific Notation";
+
+"Done" = "Done";
+
+
+/* Convert tab */
+"Unit Converter" = "Unit Converter";
+"Length (Distance)" = "Length (Distance)";
+"Temperature" = "Temperature";
+"Weight (Mass)" = "Weight (Mass)";
+"Volume" = "Volume";
+"Pressure" = "Pressure";
+
+
+
+/* Conversion */
+"Value" = "Value";
+
+
+
+/* Filter options */
+"None" = "None";
+"Can't find any conversions by %@." = "Can't find any conversions by %@.";
+
+
+/* Sort options */
+"Conversion Type (Ascending)" = "Conversion Type (Ascending)";
+"Conversion Type (Descending)" = "Conversion Type (Descending)";
+"Creation Date (Ascending)" = "Creation Date (Ascending)";
+"Creation Date (Descending)" = "Creation Date (Descending)";
+
+"Cancel" = "Cancel";
+
+
+/* History tool bar buttons */
+"Select sort order" = "Select sort order";
+"Filter by" = "Filter by";
+
+
+
+/* History item */
+"To" = "to";
+
+
+
+
+
+/* Formatted string interpolation */
+"%@" = "%@";
+"%lld" = "%lld";
+

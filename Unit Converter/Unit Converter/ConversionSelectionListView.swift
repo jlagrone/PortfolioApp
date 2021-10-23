@@ -31,7 +31,8 @@ struct ConversionSelectionListView: View {
                 }
                 .navigationTitle("Unit Converter")
                 .navigationBarItems(
-                    leading:  Button(action: addSampleData ) { Image(systemName: "plus")},
+                    // for early dev and testing
+//                    leading:  Button(action: addSampleData ) { Image(systemName: "plus")},
                     trailing: Button(action: { showingSettings.toggle()
                 }) { Image(systemName: "gearshape") })
             }
@@ -43,14 +44,15 @@ struct ConversionSelectionListView: View {
         })
     }
 
-    private func addSampleData() {
-            dataController.deleteAll()
-            try? dataController.createSampleData()
-    }
-
-
+//    // for early dev and testing
+//    private func addSampleData() {
+//            dataController.deleteAll()
+//            try? dataController.createSampleData()
+//    }
 
 }
+
+
 
 struct ConversionSelectionListView_Previews: PreviewProvider {
 

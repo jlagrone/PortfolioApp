@@ -175,7 +175,7 @@ struct ConversionView: View {
             case .length: return UnitLength.feet
             case .volume: return UnitVolume.gallons
             case .temperature: return UnitTemperature.fahrenheit
-            case .weight: return UnitMass.pounds
+            case .mass: return UnitMass.pounds
             case .pressure: return UnitPressure.inchesOfMercury
         }
     }
@@ -185,7 +185,7 @@ struct ConversionView: View {
             case .length: return UnitLength.meters
             case .volume: return UnitVolume.liters
             case .temperature: return UnitTemperature.celsius
-            case .weight: return UnitMass.kilograms
+            case .mass: return UnitMass.kilograms
             case .pressure: return UnitPressure.millibars
         }
     }
@@ -195,7 +195,7 @@ struct ConversionView: View {
             case .length: return LengthUnits.all
             case .volume: return VolumeUnits.all
             case .temperature: return TemperatureUnits.all
-            case .weight: return MassUnits.all
+            case .mass: return MassUnits.all
             case .pressure: return PressureUnits.all
         }
     }

@@ -30,7 +30,7 @@ struct FormatView: View {
 
                         Text("\(Int(upperLimit))").font(.caption)
                     }
-                    Text("Digits After Decimal: \(Int(fractionPrecision))")
+                    Text("\(Int(fractionPrecision)) digits after decimal")
                         .font(.caption)
                 }
             )
@@ -46,7 +46,7 @@ struct FormatView: View {
 
                         Text("\(Int(upperLimit))").font(.caption)
                     }
-                    Text("Significant Digits: \(Int(significantDigits))")
+                    Text("\(Int(significantDigits)) significant digit")
                         .font(.caption)
                 }
             )

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 //  Conversion properties in Core Data model:
 //      date        Date
@@ -38,7 +39,8 @@ extension Conversion {
     /// Returns the `String` for the `conversionType` for UI presentation, like "Length (Distance)"
     var conversionTypeString: String {
         let _type = ConversionType(rawValue: Int(type))
-        return _type?.string ?? "Huh?"
+        let returnString = _type?.string ?? ""
+        return returnString
     }
 
 
@@ -48,7 +50,7 @@ extension Conversion {
     var conversionInputValue: Double { inputValue }
 
     /// *"ft"* or *"ºC"*
-    var conversionInputSymbol: String { inputUnit ?? "huh?"}
+    var conversionInputSymbol: String { inputUnit ?? ""}
 
     /// In the format of *12 ft* or *5.3 m*
     var conversionInputAsString: String {
@@ -86,7 +88,7 @@ extension Conversion {
     var conversionResultValue: Double { resultValue }
 
     /// *"ft"* or *"ºC"*
-    var coversionResultSymbol: String { resultUnit ?? "huh?"}
+    var coversionResultSymbol: String { resultUnit ?? ""}
 
     /// In the format of *12 ft* or *5.3 m*
     var conversionResultAsString: String {

@@ -6,20 +6,23 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum ConversionType: Int, CaseIterable, Comparable {
 
     case length
     case temperature
     case volume
-    case weight
+    case mass
     case pressure
 
     var string: String {
         switch self {
-            case .weight:  return "Weight (Mass)"
+            case .mass:  return NSLocalizedString("Weight (Mass)", comment: "ConversionType to string")
             case .length:  return "Length (Distance)"
-            default:       return "\(self)".capitalized
+            case .temperature: return "Temperature"
+            case .volume: return "Volume"
+            case .pressure: return "Pressure"
         }
     }
 
@@ -38,7 +41,7 @@ enum ConversionType: Int, CaseIterable, Comparable {
             case .length: return LengthUnits.imageName
             case .volume: return VolumeUnits.imageName
             case .temperature: return TemperatureUnits.imageName
-            case .weight: return MassUnits.imageName
+            case .mass: return MassUnits.imageName
             case .pressure: return PressureUnits.imageName
         }
     }
