@@ -20,10 +20,9 @@
 "Format Result" = "Formato de resultado";
 "Decimal Places" = "Lugares decimales";
 "Significant Digits" = "Dígitos significantes";
-"Digits After Decimal" = "Dígitos después del decimal";
+//"digits dfter decimal" = "dígitos después del decimal";
 
 "Notation" = "Notación";
-"Scientific Notation" = "Notación cientifica";
 
 "Done" = "Terminado";
 

@@ -12,10 +12,12 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>lld</string>
+            <key>zero</key>
+            <string>0 dígito significativo</string>
 			<key>one</key>
-			<string>1 significant digit</string>
+			<string>1 dígito significativo</string>
 			<key>other</key>
-			<string>%lld significant digit</string>
+			<string>%lld dígitos significativos</string>
 		</dict>
 	</dict>
     <key>%lld digits after decimal</key>
@@ -28,10 +30,12 @@
             <string>NSStringPluralRuleType</string>
             <key>NSStringFormatValueTypeKey</key>
             <string>lld</string>
+            <key>zero</key>
+            <string>0 dígitos después del decimal</string>
             <key>one</key>
-            <string>1 digit after decimal</string>
+            <string>1 dígito después del decimal</string>
             <key>other</key>
-            <string>%lld digits after decimal</string>
+            <string>%lld dígitos después del decimal</string>
         </dict>
     </dict>
 </dict>
