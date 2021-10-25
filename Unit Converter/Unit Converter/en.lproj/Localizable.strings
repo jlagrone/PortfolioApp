@@ -15,6 +15,7 @@
 /* Settings view */
 "Settings" = "Settings";
 
+"Sample Value" = "Sample Value";
 "Format Result" = "Format Result";
 "Decimal Places" = "Decimal Places";
 "Significant Digits" = "Significant Digits";

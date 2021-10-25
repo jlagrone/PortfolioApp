@@ -17,6 +17,7 @@
 /* Settings view */
 "Settings" = "Configuraciones";
 
+"Sample Value" = "Valor de muestra";
 "Format Result" = "Formato de resultado";
 "Decimal Places" = "Lugares decimales";
 "Significant Digits" = "Dígitos significantes";

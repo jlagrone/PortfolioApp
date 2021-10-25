@@ -13,10 +13,40 @@ struct SettingsView: View {
 
     @ObservedObject var userSettings = SettingsDefaults()
 
+    private var sampleValue: String {
+
+        let fractionPrecision = userSettings.fractionPrecision
+        let significantDigits = userSettings.significantDigits
+        let format = userSettings.outputFormat
+
+        let number = 123456.7890123
+
+        let numberformatter = NumberFormatter()
+        numberformatter.roundingMode = .halfUp
+
+        switch format {
+            case .decimalPlaces:
+                numberformatter.maximumFractionDigits = Int(fractionPrecision)
+            case .significantDigits:
+                numberformatter.usesSignificantDigits = true
+                numberformatter.maximumSignificantDigits = Int(significantDigits)
+        }
+
+        if userSettings.useScientificNotation { numberformatter.numberStyle = .scientific }
+
+        let valueString = numberformatter.string(from: number as NSNumber) ?? ""
+
+        return "\(valueString)"
+    }
 
     var body: some View {
         NavigationView {
             Form {
+
+                Section(header: Text("Sample Value")) {
+                    Text(sampleValue)
+                }
+
                 /// Decimal or Significant Digits
                 Section(header: Text("Format Result")) {
 
