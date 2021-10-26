@@ -17,39 +17,43 @@ struct FormatView: View {
     var lowerLimitSignificant = 1.0
     var upperLimit = 10.0
 
+    var decimalPlacesView: some View {
+        VStack{
+            HStack {
+                Text("\(Int(lowerLimitDecimals))").font(.caption)
+
+                Slider(value: $fractionPrecision,
+                       in: lowerLimitDecimals...upperLimit,
+                       step: 1.0)
+
+                Text("\(Int(upperLimit))").font(.caption)
+            }
+            Text("\(Int(fractionPrecision)) digits after decimal")
+                .font(.caption)
+        }
+    }
+
+    var scientificeNotationView: some View {
+        VStack{
+            HStack {
+                Text("\(Int(lowerLimitSignificant))").font(.caption)
+
+                Slider(value: $significantDigits,
+                       in: lowerLimitSignificant...upperLimit,
+                       step: 1.0)
+
+                Text("\(Int(upperLimit))").font(.caption)
+            }
+            Text("\(Int(significantDigits)) significant digit")
+                .font(.caption)
+        }
+    }
+
     var body: some View {
         if format == .decimalPlaces {
-            return AnyView (
-                VStack{
-                    HStack {
-                        Text("\(Int(lowerLimitDecimals))").font(.caption)
-
-                        Slider(value: $fractionPrecision,
-                               in: lowerLimitDecimals...upperLimit,
-                               step: 1.0)
-
-                        Text("\(Int(upperLimit))").font(.caption)
-                    }
-                    Text("\(Int(fractionPrecision)) digits after decimal")
-                        .font(.caption)
-                }
-            )
+            return AnyView ( decimalPlacesView )
         } else {
-            return AnyView (
-                VStack{
-                    HStack {
-                        Text("\(Int(lowerLimitSignificant))").font(.caption)
-
-                        Slider(value: $significantDigits,
-                               in: lowerLimitSignificant...upperLimit,
-                               step: 1.0)
-
-                        Text("\(Int(upperLimit))").font(.caption)
-                    }
-                    Text("\(Int(significantDigits)) significant digit")
-                        .font(.caption)
-                }
-            )
+            return AnyView ( scientificeNotationView )
         }
     }
 }

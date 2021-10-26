@@ -26,33 +26,6 @@ struct HistoryView: View {
         conversions = FetchRequest<Conversion>(entity: Conversion.entity(), sortDescriptors: [                                                    NSSortDescriptor(keyPath: \Conversion.date, ascending: false) ])
     }
 
-    var body: some View {
-        NavigationView {
-            List {
-                if let filterBy = filterBy, items.isEmpty  {
-                    Text("Can't find any conversions by \(filterBy.string).")
-                }
-                ForEach(items) { conversion in
-                    HistoryItemView(conversionItem: conversion)
-                }
-                .onDelete(perform: deleteItem)
-            }
-            .listStyle(InsetGroupedListStyle())
-            .navigationTitle("History")
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarLeading) {
-                    sortButton
-                    filterButton
-                }
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    clearButton
-                }
-            }
-            .confirmationDialog("Select sort order", isPresented: $showingSortOrder, titleVisibility: .visible) { sortConfirmationDialogButtons }
-            .confirmationDialog("Filter by", isPresented: $showingFilterBy, titleVisibility: .visible) { filterConfirmationDialogButtons }
-        }
-    }
-
     private var clearButton: some View {
         Button(action: clearDataBase) {
             Image(systemName: "trash")
@@ -114,6 +87,39 @@ struct HistoryView: View {
         return array
     }
 
+    var toolbarItems: some ToolbarContent {
+        Group{
+            ToolbarItemGroup(placement: .navigationBarLeading) {
+                sortButton
+                filterButton
+            }
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                clearButton
+            }
+        }
+    }
+
+    var body: some View {
+        NavigationView {
+            List {
+                if let filterBy = filterBy, items.isEmpty  {
+                    Text("Can't find any conversions by \(filterBy.string).")
+                }
+                ForEach(items) { conversion in
+                    HistoryItemView(conversionItem: conversion)
+                }
+                .onDelete(perform: deleteItem)
+            }
+            .listStyle(InsetGroupedListStyle())
+            .navigationTitle("History")
+            .toolbar { toolbarItems }
+            .confirmationDialog("Select sort order", isPresented: $showingSortOrder, titleVisibility: .visible) { sortConfirmationDialogButtons }
+            .confirmationDialog("Filter by", isPresented: $showingFilterBy, titleVisibility: .visible) { filterConfirmationDialogButtons }
+        }
+    }
+
+
+
     func deleteItem(offsets: IndexSet) {
         let allItems = items
 
@@ -123,10 +129,8 @@ struct HistoryView: View {
                 print("DEBUG_RC", item.conversionType.string)
                 dataController.delete(item)
             }
-
             dataController.save()
         }
-
     }
 
     private func clearDataBase() {
