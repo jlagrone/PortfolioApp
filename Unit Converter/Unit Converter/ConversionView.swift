@@ -18,6 +18,10 @@ struct ConversionView: View {
     @State private var significantDigits: Double = SettingsDefaults().significantDigits
     @State private var useScientificNotation: Bool = SettingsDefaults().useScientificNotation
 
+    private var resultMeasurement: Measurement<Dimension> {
+        let oldValue = Measurement(value: Double(inputValue) ?? 0, unit: fromUnit)
+        return oldValue.converted(to: toUnit)
+    }
 
     /// Compute the conversion of `inputValue` from `fromUnit` to `toUnit`
     private var resultValue: String {
@@ -46,9 +50,13 @@ struct ConversionView: View {
         return "\(valueString)"
     }
 
+    var navtitle: String { self.conversionType.string }
+
     /// Types are length, temperature, volume, weight/mass, pressure
     ///     This makes the default length.
     var conversionType: ConversionType = .length
+
+
 
     // MARK: - Initializers
     /// Initializer for existing (previous) conversion
@@ -70,7 +78,6 @@ struct ConversionView: View {
         _toUnit = State(wrappedValue: defaultToUnit)
     }
 
-    var navtitle: String { self.conversionType.string }
 
     // MARK: - Views
     var body: some View {
@@ -92,9 +99,7 @@ struct ConversionView: View {
             self.hideKeyboard()
         })
         .toolbar {
-//            ToolbarItemGroup(placement: .navigationBarTrailing) {
                 keyBoardButton
-//            }
         }
         .navigationTitle(navtitle)
         .onDisappear(perform: save)
@@ -115,6 +120,7 @@ struct ConversionView: View {
                 .id(fromUnit)
                 .labelsHidden()
                 .pickerStyle(MenuPickerStyle())
+                .accessibilityLabel("\(fromUnit.symbol)")
             }.padding()
         }
     }
@@ -133,7 +139,10 @@ struct ConversionView: View {
                 .labelsHidden()
                 .pickerStyle(MenuPickerStyle())
 
-            }.padding()
+            }
+            .padding()
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel("\(resultMeasurement.description)")
         }
     }
 
@@ -166,6 +175,7 @@ struct ConversionView: View {
         Button(action: self.hideKeyboard) {
             Image(systemName: "keyboard")
         }
+        .accessibilityLabel("Hide keyboard.")
     }
 
     // MARK: - Other properties

@@ -12,6 +12,8 @@
 "History" = "History";
 
 
+
+
 /* Settings view */
 "Settings" = "Settings";
 
@@ -25,6 +27,8 @@
 
 "Done" = "Done";
 
+"On" = "On";
+"Off" = "Off";
 
 /* Convert tab */
 "Unit Converter" = "Unit Converter";
@@ -38,7 +42,7 @@
 
 /* Conversion */
 "Value" = "Value";
-
+"Hide keyboard." = "Hide keyboard.";
 
 
 /* Filter options */
@@ -63,7 +67,7 @@
 
 /* History item */
 "to" = "to";
-
+"Clear history." = "Clear history.";
 
 
 

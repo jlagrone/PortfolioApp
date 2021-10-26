@@ -31,10 +31,7 @@ struct ConversionSelectionListView: View {
                 }
                 .navigationTitle("Unit Converter")
                 .navigationBarItems(
-                    // for early dev and testing
-//                    leading:  Button(action: addSampleData ) { Image(systemName: "plus")},
-                    trailing: Button(action: { showingSettings.toggle()
-                }) { Image(systemName: "gearshape") })
+                    trailing: settingsButton)
             }
             .accentColor(accentColor)
             .foregroundColor(accentColor)
@@ -44,11 +41,16 @@ struct ConversionSelectionListView: View {
         })
     }
 
-//    // for early dev and testing
-//    private func addSampleData() {
-//            dataController.deleteAll()
-//            try? dataController.createSampleData()
-//    }
+
+    private var settingsButton: some View {
+        Button {
+            showingSettings.toggle()
+        } label: {
+            Image(systemName: "gearshape")
+        }
+        .accessibilityLabel(Text("Open Settings"))
+    }
+
 
 }
 

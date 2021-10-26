@@ -13,13 +13,13 @@ struct SettingsView: View {
 
     @ObservedObject var userSettings = SettingsDefaults()
 
+    private var sampleNumber = 123456.7890123
+    
     private var sampleValue: String {
 
         let fractionPrecision = userSettings.fractionPrecision
         let significantDigits = userSettings.significantDigits
         let format = userSettings.outputFormat
-
-        let number = 123456.7890123
 
         let numberformatter = NumberFormatter()
         numberformatter.roundingMode = .halfUp
@@ -34,9 +34,23 @@ struct SettingsView: View {
 
         if userSettings.useScientificNotation { numberformatter.numberStyle = .scientific }
 
-        let valueString = numberformatter.string(from: number as NSNumber) ?? ""
+        let valueString = numberformatter.string(from: sampleNumber as NSNumber) ?? ""
 
         return "\(valueString)"
+    }
+
+    var formatResultView: some View {
+        Group {
+            Picker("Result Format", selection: $userSettings.outputFormat) {
+                Text("Decimal Places").tag(OutputFormat.decimalPlaces)
+                Text("Significant Digits").tag(OutputFormat.significantDigits)
+            }
+            .pickerStyle(SegmentedPickerStyle())
+
+            FormatView(format: $userSettings.outputFormat,
+                       significantDigits: $userSettings.significantDigits,
+                       fractionPrecision: $userSettings.fractionPrecision)
+        }
     }
 
     var body: some View {
@@ -45,31 +59,24 @@ struct SettingsView: View {
 
                 Section(header: Text("Sample Value")) {
                     Text(sampleValue)
+                        .accessibilityLabel("\(Double(sampleValue)!, specifier: "%f")")
                 }
 
                 /// Decimal or Significant Digits
                 Section(header: Text("Format Result")) {
-
-                    Picker("Result Format", selection: $userSettings.outputFormat) {
-                        Text("Decimal Places").tag(OutputFormat.decimalPlaces)
-                        Text("Significant Digits").tag(OutputFormat.significantDigits)
-                    }
-                    .pickerStyle(SegmentedPickerStyle())
-
-                    FormatView(format: $userSettings.outputFormat,
-                               significantDigits: $userSettings.significantDigits,
-                               fractionPrecision: $userSettings.fractionPrecision)
+                    formatResultView
                 }
 
                 Section(header: Text("Notation")) {
                     Toggle("Scientific Notation", isOn: $userSettings.useScientificNotation)
+                        .accessibilityLabel("\(userSettings.useScientificNotation ? "On" : "Off")")
                 }
             }
             .navigationBarTitle("Settings")
-            .navigationBarItems(trailing:             Button(action: {
+            .accessibilityHint("Set preferences for using Significant Digits or Scientific Notation")
+            .navigationBarItems(trailing: Button(action: {
                 presentationMode.wrappedValue.dismiss()
             } ) {
-                Image(systemName: "Control")
                 Text("Done")
             } )
         }.accentColor(.red)

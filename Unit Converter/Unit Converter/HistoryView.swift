@@ -57,6 +57,7 @@ struct HistoryView: View {
         Button(action: clearDataBase) {
             Image(systemName: "trash")
         }
+        .accessibilityLabel("Clear history.")
     }
 
     private var sortButton: some View {

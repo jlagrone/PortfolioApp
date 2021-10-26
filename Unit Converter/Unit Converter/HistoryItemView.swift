@@ -11,9 +11,13 @@ struct HistoryItemView: View {
 
     var conversionItem: Conversion
 
+    let TO_STRING = NSLocalizedString("to", comment: "'to' in History Item View")
     var mainText: String {
-        let TO_STRING = NSLocalizedString("to", comment: "'to' in History Item View")
         return "\(conversionItem.conversionInputAsString) \(TO_STRING) \(String(describing: conversionItem.conversionResultAsString))"
+    }
+
+    private var accessibilityLabelText: String {
+        "Converted \(conversionItem.conversionInputAsString) \(TO_STRING) \(String(describing: conversionItem.conversionResultAsString)), \(conversionItem.conversionDate.shortDescription)"
     }
 
     var body: some View {
@@ -27,6 +31,8 @@ struct HistoryItemView: View {
                 Text("\(conversionItem.conversionDate.shortDescription)")
             }
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(accessibilityLabelText)
     }
 }
 

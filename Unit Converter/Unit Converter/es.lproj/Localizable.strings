@@ -21,12 +21,14 @@
 "Format Result" = "Formato de resultado";
 "Decimal Places" = "Lugares decimales";
 "Significant Digits" = "Dígitos significantes";
-//"digits dfter decimal" = "dígitos después del decimal";
 
 "Notation" = "Notación";
+"Scientific Notation" = "Notación cientifica";
 
 "Done" = "Terminado";
 
+"On" = "Activado";
+"Off" = "Desactivado";
 
 
 /* Convert tab */
@@ -41,7 +43,7 @@
 
 /* Conversion  */
 "Value" = "Valor";
-
+"Hide keyboard." = "Ocultar teclado.";
 
 /* Filter option */
 "None" = "Ninguno";
@@ -66,6 +68,7 @@
 
 /* History item */
 "to" = "a";
+"Clear history." = "Historia clara.";
 
 
 
