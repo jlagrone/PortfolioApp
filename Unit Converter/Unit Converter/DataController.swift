@@ -18,7 +18,7 @@ class DataController: ObservableObject {
          container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
       }
 
-      container.loadPersistentStores { storeDescription, error in
+      container.loadPersistentStores { _, error in
          if let error = error {
             fatalError("Fatal error loading store: \(error.localizedDescription)")
          }
@@ -44,7 +44,7 @@ class DataController: ObservableObject {
    func createSampleData() throws {
       let viewContext = container.viewContext
 
-      for i in 0...4 {
+      for counter in 0...4 {
          let conversion = Conversion(context: viewContext)
          conversion.type = Int16(Int.random(in: 0..<ConversionType.allCases.count))
          conversion.date = Date()
@@ -52,7 +52,7 @@ class DataController: ObservableObject {
          conversion.inputValue = Double.random(in: 0...500.0)
          conversion.resultValue = Double.pi * Double.random(in: 0...5)
          conversion.resultUnit = UnitTemperature.celsius.symbol
-         conversion.notes = "This conversion is sample \(i)."
+         conversion.notes = "This conversion is sample \(counter)."
       }
 
       try viewContext.save()
@@ -68,8 +68,8 @@ class DataController: ObservableObject {
    /// Delete specified object
    /// - Parameter object: object to be deleted
    func delete(_ object: NSManagedObject) {
-       if let _object = object as? Conversion {
-           print("DEBUG_RC: deleting \(_object.conversionTypeString), \(_object.conversionInputValueString)")
+       if let object = object as? Conversion {
+           print("DEBUG_RC: deleting \(object.conversionTypeString), \(object.conversionInputValueString)")
        }
       container.viewContext.delete(object)
    }

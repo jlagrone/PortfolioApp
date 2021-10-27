@@ -27,22 +27,20 @@ extension Conversion {
     // MARK: - Date
     var conversionDate: Date { date ?? Date("1/1/1970") }
 
-
     // MARK: - Conversion Type
 
     // Takes Int16 value from Core Data and returns associated `ConversionType`
     var conversionType: ConversionType {
-        let _type = ConversionType(rawValue: Int(type)) ?? .length
-        return _type
+        let type = ConversionType(rawValue: Int(type)) ?? .length
+        return type
     }
 
     /// Returns the `String` for the `conversionType` for UI presentation, like "Length (Distance)"
     var conversionTypeString: String {
-        let _type = ConversionType(rawValue: Int(type))
-        let returnString = _type?.string ?? ""
+        let type = ConversionType(rawValue: Int(type))
+        let returnString = type?.string ?? ""
         return returnString
     }
-
 
     // MARK: - Original (inputValue and inputUnit)
 
@@ -80,8 +78,6 @@ extension Conversion {
         return string
     }
 
-
-
     // MARK: - Result (resultValue and resultUnit
 
     /// No unwrapping necessary; just provides consistent interface
@@ -113,14 +109,13 @@ extension Conversion {
         return string
     }
 
-
     // MARK: - Notes
     /// Unwrapped notes property
     var conversionNotes: String {
         notes ?? ""
     }
 
-    // MARK: -  Methods
+    // MARK: - Methods
 
     /// This method returns the `measurement` parameter as string using specified significant digits.
     /// - Parameter measurement: A Measurement object for stringify
@@ -143,4 +138,3 @@ extension Conversion {
     }
 
 }
-

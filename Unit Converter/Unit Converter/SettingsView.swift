@@ -14,7 +14,7 @@ struct SettingsView: View {
     @ObservedObject var userSettings = SettingsDefaults()
 
     private var sampleNumber = 123456.7890123
-    
+
     private var sampleValue: String {
 
         let fractionPrecision = userSettings.fractionPrecision
@@ -53,6 +53,12 @@ struct SettingsView: View {
         }
     }
 
+    var doneButton: some View {
+        Button("Done") {
+            presentationMode.wrappedValue.dismiss()
+        }
+    }
+
     var body: some View {
         NavigationView {
             Form {
@@ -62,7 +68,7 @@ struct SettingsView: View {
                         .accessibilityLabel("\(Double(sampleValue)!, specifier: "%f")")
                 }
 
-                /// Decimal or Significant Digits
+                // Decimal or Significant Digits
                 Section(header: Text("Format Result")) {
                     formatResultView
                 }
@@ -74,11 +80,7 @@ struct SettingsView: View {
             }
             .navigationBarTitle("Settings")
             .accessibilityHint("Set preferences for using Significant Digits or Scientific Notation")
-            .navigationBarItems(trailing: Button(action: {
-                presentationMode.wrappedValue.dismiss()
-            } ) {
-                Text("Done")
-            } )
+            .navigationBarItems(trailing: doneButton)
         }.accentColor(.red)
         Spacer()
     }

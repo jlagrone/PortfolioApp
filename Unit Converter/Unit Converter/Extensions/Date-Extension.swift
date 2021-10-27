@@ -7,14 +7,12 @@
 
 import Foundation
 
-
 extension Date {
-
 
     /// Create a Date object from a date string with *dd/mm/yy* format
     ///     Uses `"en_US"` for locale
     /// - Parameter dateString: Date in *dd/mm/yy* format
-   init(_ dateString: String)  {
+   init(_ dateString: String) {
 
       let dateStringFormatter = DateFormatter()
       dateStringFormatter.dateStyle = .short
@@ -29,13 +27,13 @@ extension Date {
          str = "\(dateString)/\(year)"
       }
 
-      if let d = dateStringFormatter.date(from: str) {
-         self.init(timeInterval:0, since:d)
+      if let date = dateStringFormatter.date(from: str) {
+         self.init(timeInterval: 0, since: date)
       } else {
          self.init(timeIntervalSince1970: 0)
       }
    }
-    
+
     /// Date as string with `.short` style for dateStyle and timeStyle
     var shortDescription: String {
         let formatter = DateFormatter()

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		051886AD271762FB00935AB8 /* Unit_ConverterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051886AC271762FB00935AB8 /* Unit_ConverterApp.swift */; };
+		051886AD271762FB00935AB8 /* UnitConverterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051886AC271762FB00935AB8 /* UnitConverterApp.swift */; };
 		051886AF271762FB00935AB8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051886AE271762FB00935AB8 /* ContentView.swift */; };
 		051886B4271762FC00935AB8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 051886B3271762FC00935AB8 /* Preview Assets.xcassets */; };
 		051886BC271772E500935AB8 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 051886BA271772E500935AB8 /* Main.xcdatamodeld */; };
@@ -37,7 +37,7 @@
 
 /* Begin PBXFileReference section */
 		051886A9271762FB00935AB8 /* Unit Converter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Unit Converter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		051886AC271762FB00935AB8 /* Unit_ConverterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unit_ConverterApp.swift; sourceTree = "<group>"; };
+		051886AC271762FB00935AB8 /* UnitConverterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitConverterApp.swift; sourceTree = "<group>"; };
 		051886AE271762FB00935AB8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		051886B3271762FC00935AB8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		051886BB271772E500935AB8 /* Main.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Main.xcdatamodel; sourceTree = "<group>"; };
@@ -117,7 +117,7 @@
 				051886C82718767500935AB8 /* HistoryView.swift */,
 				051886DC2718AF2500935AB8 /* Settings.swift */,
 				051886DB2718AF2500935AB8 /* SettingsView.swift */,
-				051886AC271762FB00935AB8 /* Unit_ConverterApp.swift */,
+				051886AC271762FB00935AB8 /* UnitConverterApp.swift */,
 				051886CC2718AA2D00935AB8 /* Units Types */,
 				051886E72718B52C00935AB8 /* Assets.xcassets */,
 				051886BA271772E500935AB8 /* Main.xcdatamodeld */,
@@ -171,6 +171,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 051886B7271762FC00935AB8 /* Build configuration list for PBXNativeTarget "Unit Converter" */;
 			buildPhases = (
+				05F635132729DE7100F316AF /* ShellScript */,
 				051886A5271762FB00935AB8 /* Sources */,
 				051886A6271762FB00935AB8 /* Frameworks */,
 				051886A7271762FB00935AB8 /* Resources */,
@@ -232,6 +233,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		05F635132729DE7100F316AF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		051886A5271762FB00935AB8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -254,7 +275,7 @@
 				051886E12718AF2500935AB8 /* Settings.swift in Sources */,
 				051886EC271A0B6A00935AB8 /* Date-Extension.swift in Sources */,
 				051886E42718AF2500935AB8 /* ConversionSelectionListView.swift in Sources */,
-				051886AD271762FB00935AB8 /* Unit_ConverterApp.swift in Sources */,
+				051886AD271762FB00935AB8 /* UnitConverterApp.swift in Sources */,
 				051886DA2718AB3D00935AB8 /* ConversionType.swift in Sources */,
 				051886D42718AA5900935AB8 /* VolumeUnits.swift in Sources */,
 				051886D52718AA5900935AB8 /* MassUnits.swift in Sources */,

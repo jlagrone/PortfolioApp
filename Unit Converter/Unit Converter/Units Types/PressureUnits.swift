@@ -12,7 +12,7 @@ struct PressureUnits: UnitProtocol {
     static var imageName: String { "barometer" }
     static let metric: [UnitPressure] = [.newtonsPerMetersSquared, .gigapascals,
                                          .megapascals, .kilopascals,
-                                         .hectopascals,  .bars, .millibars,
+                                         .hectopascals, .bars, .millibars,
                                          .millimetersOfMercury]
 
     static let imperial: [UnitPressure] = [.inchesOfMercury, .poundsForcePerSquareInch]

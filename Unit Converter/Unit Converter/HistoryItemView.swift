@@ -11,13 +11,19 @@ struct HistoryItemView: View {
 
     var conversionItem: Conversion
 
-    let TO_STRING = NSLocalizedString("to", comment: "'to' in History Item View")
+    // swiftlint:disable identifier_name
+    private let TO_STRING = NSLocalizedString("to", comment: "'to' in History Item View")
+    private var inputString: String { conversionItem.conversionInputAsString }
+    private var resultString: String { String(describing: conversionItem.conversionResultAsString) }
+    private var dateString: String { conversionItem.conversionDate.shortDescription }
+
     var mainText: String {
-        return "\(conversionItem.conversionInputAsString) \(TO_STRING) \(String(describing: conversionItem.conversionResultAsString))"
+        return "\(inputString) \(TO_STRING) \(resultString)"
     }
 
     private var accessibilityLabelText: String {
-        "Converted \(conversionItem.conversionInputAsString) \(TO_STRING) \(String(describing: conversionItem.conversionResultAsString)), \(conversionItem.conversionDate.shortDescription)"
+
+        return "Converted \(inputString) \(TO_STRING) \(resultString), \(dateString)"
     }
 
     var body: some View {
@@ -28,7 +34,7 @@ struct HistoryItemView: View {
             Text(mainText).padding(.leading, 12.0)
             HStack {
                 Spacer()
-                Text("\(conversionItem.conversionDate.shortDescription)")
+                Text("\(dateString)")
             }
         }
         .accessibilityElement(children: .ignore)
@@ -36,8 +42,8 @@ struct HistoryItemView: View {
     }
 }
 
-//struct HistoryItemView_Previews: PreviewProvider {
+// struct HistoryItemView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        HistoryItemView()
 //    }
-//}
+// }

@@ -17,7 +17,7 @@ struct HistoryView: View {
     @State private var sortOrder = Conversion.SortOrder.creationDate
     @State private var sortAscending = true
     @State private var showingFilterBy = false
-    @State private var filterBy: ConversionType? = nil
+    @State private var filterBy: ConversionType?
     @State private var showingClearConfirmation = false
 
     static let tag: String? = "HistoryView" // needed to restore state
@@ -25,18 +25,25 @@ struct HistoryView: View {
     let conversions: FetchRequest<Conversion>
 
     init() {
-        conversions = FetchRequest<Conversion>(entity: Conversion.entity(), sortDescriptors: [                                                    NSSortDescriptor(keyPath: \Conversion.date, ascending: false) ])
+        conversions = FetchRequest<Conversion>(entity: Conversion.entity(),
+                                               sortDescriptors: [NSSortDescriptor(keyPath: \Conversion.date,
+                                                                                  ascending: false)
+                                                                ])
     }
 
     private var clearButton: some View {
-        Button(action: { showingClearConfirmation.toggle() } ) {
+        Button {
+            showingClearConfirmation.toggle()
+        } label: {
             Image(systemName: "trash")
         }
         .accessibilityLabel("Clear history.")
     }
 
     private var sortButton: some View {
-        Button(action: { showingSortOrder.toggle() } ) {
+        Button {
+            showingSortOrder.toggle()
+        } label: {
             Image(systemName: "arrow.up.arrow.down.circle")
         }
     }
@@ -45,7 +52,9 @@ struct HistoryView: View {
         (filterBy == nil) ? "line.3.horizontal.decrease.circle" : "line.3.horizontal.decrease.circle.fill"
     }
     private var filterButton: some View {
-        Button(action: { showingFilterBy.toggle() } ) {
+        Button {
+            showingFilterBy.toggle()
+        } label: {
             Image(systemName: filterButtonImageName)
         }
     }
@@ -70,7 +79,6 @@ struct HistoryView: View {
         }
     }
 
-
     private var items: [Conversion] {
         var array: [Conversion]
         switch sortOrder {
@@ -90,7 +98,7 @@ struct HistoryView: View {
     }
 
     var toolbarItems: some ToolbarContent {
-        Group{
+        Group {
             ToolbarItemGroup(placement: .navigationBarLeading) {
                 sortButton
                 filterButton
@@ -104,7 +112,7 @@ struct HistoryView: View {
     var body: some View {
         NavigationView {
             List {
-                if let filterBy = filterBy, items.isEmpty  {
+                if let filterBy = filterBy, items.isEmpty {
                     Text("Can't find any conversions by \(filterBy.string).")
                 }
                 ForEach(items) { conversion in
@@ -115,8 +123,12 @@ struct HistoryView: View {
             .listStyle(InsetGroupedListStyle())
             .navigationTitle("History")
             .toolbar { toolbarItems }
-            .confirmationDialog("Select sort order", isPresented: $showingSortOrder, titleVisibility: .visible) { sortConfirmationDialogButtons }
-            .confirmationDialog("Filter by", isPresented: $showingFilterBy, titleVisibility: .visible) { filterConfirmationDialogButtons }
+            .confirmationDialog("Select sort order",
+                                isPresented: $showingSortOrder,
+                                titleVisibility: .visible) { sortConfirmationDialogButtons }
+            .confirmationDialog("Filter by",
+                                isPresented: $showingFilterBy,
+                                titleVisibility: .visible) { filterConfirmationDialogButtons }
             .alert(isPresented: $showingClearConfirmation) {
                 Alert(title: Text("Clear history?"),
                       message: Text("Are you sure you want to clear all history? This operation cannot be undone."),
@@ -125,8 +137,6 @@ struct HistoryView: View {
             }
         }
     }
-
-
 
     func deleteItem(offsets: IndexSet) {
         let allItems = items
@@ -146,7 +156,6 @@ struct HistoryView: View {
         dataController.save()
         dataController.container.viewContext.reset()
     }
-    
 }
 
 struct HistoryView_Previews: PreviewProvider {

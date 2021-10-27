@@ -51,7 +51,6 @@ enum ConversionType: Int, CaseIterable, Comparable {
             case .pressure: return PressureUnits.imageName
         }
     }
-
 }
 
 extension ConversionType {

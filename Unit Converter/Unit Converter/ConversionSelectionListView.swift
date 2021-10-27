@@ -8,9 +8,6 @@
 import SwiftUI
 import Foundation
 
-
-
-
 struct ConversionSelectionListView: View {
     @EnvironmentObject var dataController: DataController
 
@@ -41,7 +38,6 @@ struct ConversionSelectionListView: View {
         })
     }
 
-
     private var settingsButton: some View {
         Button {
             showingSettings.toggle()
@@ -50,11 +46,7 @@ struct ConversionSelectionListView: View {
         }
         .accessibilityLabel(Text("Open Settings"))
     }
-
-
 }
-
-
 
 struct ConversionSelectionListView_Previews: PreviewProvider {
 
@@ -62,4 +54,3 @@ struct ConversionSelectionListView_Previews: PreviewProvider {
         ConversionSelectionListView()
     }
 }
-

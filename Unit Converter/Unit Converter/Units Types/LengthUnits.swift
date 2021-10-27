@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct LengthUnits: UnitProtocol {
 
     static var imageName: String { "ruler" }
@@ -28,4 +27,3 @@ struct LengthUnits: UnitProtocol {
     }
 
 }
-

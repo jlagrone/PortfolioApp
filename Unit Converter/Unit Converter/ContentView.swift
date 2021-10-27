@@ -27,7 +27,7 @@ struct ContentView: View {
                     Text("History")
                 }
         }
-        
+
     }
 }
 

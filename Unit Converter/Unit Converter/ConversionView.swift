@@ -56,8 +56,6 @@ struct ConversionView: View {
     ///     This makes the default length.
     var conversionType: ConversionType = .length
 
-
-
     // MARK: - Initializers
     /// Initializer for existing (previous) conversion
     /// - Parameters:
@@ -77,7 +75,6 @@ struct ConversionView: View {
         _fromUnit = State(wrappedValue: defaultFromUnit)
         _toUnit = State(wrappedValue: defaultToUnit)
     }
-
 
     // MARK: - Views
     var body: some View {
@@ -112,7 +109,7 @@ struct ConversionView: View {
             HStack {
                 TextField("Value", text: $inputValue)
                     .keyboardType(.decimalPad)
-                Picker("\(fromUnit.symbol)", selection: $fromUnit){
+                Picker("\(fromUnit.symbol)", selection: $fromUnit) {
                     ForEach(pickerUnits, id: \.self) { unit in
                         Text("\(unit.symbol)")
                     }
@@ -127,10 +124,10 @@ struct ConversionView: View {
 
     private var convertToSection: some View {
         Section(header: Text("To").textCase(.uppercase) ) {
-            HStack{
+            HStack {
                 Text(resultValue)
                 Spacer()
-                Picker("\(toUnit.symbol.description)", selection: $toUnit){
+                Picker("\(toUnit.symbol.description)", selection: $toUnit) {
                     ForEach(pickerUnits, id: \.self) { unit in
                         Text("\(unit.symbol)")
                     }
@@ -153,7 +150,7 @@ struct ConversionView: View {
                 Text("Decimal Places").tag(OutputFormat.decimalPlaces)
                 Text("Significant Digits").tag(OutputFormat.significantDigits)
             }
-            .onChange(of: format) { value in
+            .onChange(of: format) { _ in
                 self.hideKeyboard()
             }
             .pickerStyle(SegmentedPickerStyle())
@@ -236,8 +233,6 @@ struct ConversionView: View {
     }
 }
 
-
-
 #if canImport(UIKit)
 extension View {
     func hideKeyboard() {
@@ -249,8 +244,8 @@ extension View {
 struct ConversionView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ConversionView(type:  .length)
-            ConversionView(type:  .volume)
+            ConversionView(type: .length)
+            ConversionView(type: .volume)
         }
     }
 }

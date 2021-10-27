@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct Unit_ConverterApp: App {
+struct UnitConverterApp: App {
    @StateObject var dataController: DataController
 
    init() {
@@ -19,7 +19,8 @@ struct Unit_ConverterApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, dataController.container.viewContext) // for SwiftUI to read dataController
+            // for SwiftUI to read dataController
+                .environment(\.managedObjectContext, dataController.container.viewContext)
                 .environmentObject(dataController) // our code to read dataController
         }
     }

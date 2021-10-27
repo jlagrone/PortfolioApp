@@ -7,6 +7,7 @@
 
 import Foundation
 
+// swiftlint:disable private_over_fileprivate
 // Prefix for all UserDefaults' keys
 fileprivate let prefix = "com.manna-software.unitconverter-"
 
@@ -46,13 +47,12 @@ final class SettingsDefaults: ObservableObject {
             print("setting \(#function): \(fractionPrecision)") }
     }
 
-
     init() {
         UserDefaults.standard.register(defaults: [
-            outputFormatKey : OutputFormat.decimalPlaces.rawValue,
-            scientificNotationKey : false,
-            significantDigitsKey : 3.0,
-            fractionPrecisionKey : 3.0,
+            outputFormatKey: OutputFormat.decimalPlaces.rawValue,
+            scientificNotationKey: false,
+            significantDigitsKey: 3.0,
+            fractionPrecisionKey: 3.0
         ])
 
         self.useScientificNotation = UserDefaults.standard.bool(forKey: scientificNotationKey)

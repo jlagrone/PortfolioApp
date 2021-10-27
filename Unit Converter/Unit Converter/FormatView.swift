@@ -18,7 +18,7 @@ struct FormatView: View {
     var upperLimit = 10.0
 
     var decimalPlacesView: some View {
-        VStack{
+        VStack {
             HStack {
                 Text("\(Int(lowerLimitDecimals))").font(.caption)
 
@@ -34,7 +34,7 @@ struct FormatView: View {
     }
 
     var scientificeNotationView: some View {
-        VStack{
+        VStack {
             HStack {
                 Text("\(Int(lowerLimitSignificant))").font(.caption)
 
@@ -51,9 +51,9 @@ struct FormatView: View {
 
     var body: some View {
         if format == .decimalPlaces {
-            return AnyView ( decimalPlacesView )
+            return AnyView( decimalPlacesView )
         } else {
-            return AnyView ( scientificeNotationView )
+            return AnyView( scientificeNotationView )
         }
     }
 }
