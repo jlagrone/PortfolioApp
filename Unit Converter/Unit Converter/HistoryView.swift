@@ -11,12 +11,14 @@ import CoreData
 struct HistoryView: View {
     @EnvironmentObject var dataController: DataController
     @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.presentationMode) var presentationMode
 
     @State private var showingSortOrder = false
     @State private var sortOrder = Conversion.SortOrder.creationDate
     @State private var sortAscending = true
     @State private var showingFilterBy = false
     @State private var filterBy: ConversionType? = nil
+    @State private var showingClearConfirmation = false
 
     static let tag: String? = "HistoryView" // needed to restore state
 
@@ -27,7 +29,7 @@ struct HistoryView: View {
     }
 
     private var clearButton: some View {
-        Button(action: clearDataBase) {
+        Button(action: { showingClearConfirmation.toggle() } ) {
             Image(systemName: "trash")
         }
         .accessibilityLabel("Clear history.")
@@ -115,6 +117,12 @@ struct HistoryView: View {
             .toolbar { toolbarItems }
             .confirmationDialog("Select sort order", isPresented: $showingSortOrder, titleVisibility: .visible) { sortConfirmationDialogButtons }
             .confirmationDialog("Filter by", isPresented: $showingFilterBy, titleVisibility: .visible) { filterConfirmationDialogButtons }
+            .alert(isPresented: $showingClearConfirmation) {
+                Alert(title: Text("Clear history?"),
+                      message: Text("Are you sure you want to clear all history? This operation cannot be undone."),
+                      primaryButton: .destructive(Text("Delete"), action: clearDataBase),
+                      secondaryButton: .cancel())
+            }
         }
     }
 

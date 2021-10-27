@@ -62,12 +62,13 @@
 /* History tool bar buttons */
 "Select sort order" = "Select sort order";
 "Filter by" = "Filter by";
-
-
+"Delete" = "Delete";
+"Are you sure you want to clear all history? This operation cannot be undone." = "Are you sure you want to clear all history? This operation cannot be undone.";
 
 /* History item */
 "to" = "to";
 "Clear history." = "Clear history.";
+"Clear history?" = "Clear history?";
 
 
 

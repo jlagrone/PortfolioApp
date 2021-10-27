@@ -62,13 +62,15 @@
 /* History tool bar buttons */
 "Select sort order" = "Seleccionar orden de clasificación";
 "Filter by" = "Filtrado por";
-
+"Delete" = "Eliminar";
+"Are you sure you want to clear all history? This operation cannot be undone." = "¿Está seguro de que desea borrar todo el historial? Esta operación no se puede deshacer.";
 
 
 
 /* History item */
 "to" = "a";
 "Clear history." = "Historia clara.";
+"Clear history?" = "¿Historia clara?";
 
 
 
