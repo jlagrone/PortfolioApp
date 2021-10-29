@@ -11,6 +11,7 @@ import SwiftUI
 struct UnitConverterApp: App {
    @StateObject var dataController: DataController
 
+   // Initialize the app with the DataController singleton for placement into the environment
    init() {
       let dataController = DataController()
       _dataController = StateObject(wrappedValue: dataController)

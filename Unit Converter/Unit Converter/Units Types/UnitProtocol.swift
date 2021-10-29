@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Abstraction for reusing the *?Units* conversions
 protocol UnitProtocol {
 
     static var imageName: String { get }

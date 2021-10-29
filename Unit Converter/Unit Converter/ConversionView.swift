@@ -7,17 +7,20 @@
 
 import SwiftUI
 
+/// Allows user to enter a value and unit to convert to another unit.
+///
+/// Defaults to converting Length from `feet` to `meters`.
 struct ConversionView: View {
     @EnvironmentObject var dataController: DataController
     @State private var inputValue: String = ""
     @State private var fromUnit: Dimension = UnitLength.feet
-//    @State private var resultValue: String
     @State private var toUnit: Dimension = UnitLength.meters
     @State private var format: OutputFormat = SettingsDefaults().outputFormat
     @State private var fractionPrecision: Double = SettingsDefaults().fractionPrecision
     @State private var significantDigits: Double = SettingsDefaults().significantDigits
     @State private var useScientificNotation: Bool = SettingsDefaults().useScientificNotation
 
+    /// The result of conversion in the form of a Measurement
     private var resultMeasurement: Measurement<Dimension> {
         let oldValue = Measurement(value: Double(inputValue) ?? 0, unit: fromUnit)
         return oldValue.converted(to: toUnit)
@@ -50,14 +53,15 @@ struct ConversionView: View {
         return "\(valueString)"
     }
 
-    var navtitle: String { self.conversionType.string }
+   /// Stringified ConversionType for Navigation Title
+    private var navtitle: String { self.conversionType.string }
 
     /// Types are length, temperature, volume, weight/mass, pressure
     ///     This makes the default length.
     var conversionType: ConversionType = .length
 
     // MARK: - Initializers
-    /// Initializer for existing (previous) conversion
+    /// Initializer for existing (previous) conversion, presumably for showing from history
     /// - Parameters:
     ///   - item: a `Conversion` (possibly from HistoryView)
     ///   - type: length, temperature, weight/mass, pressure, or volume
@@ -96,7 +100,7 @@ struct ConversionView: View {
             self.hideKeyboard()
         })
         .toolbar {
-                keyBoardButton
+                keyboardButton
         }
         .navigationTitle(navtitle)
         .onDisappear(perform: save)
@@ -104,6 +108,7 @@ struct ConversionView: View {
 
     }
 
+   // Section 1 - User input value and unit
     private var convertFromSection: some View {
         Section(header: Text("Convert").textCase(.uppercase) ) {
             HStack {
@@ -122,6 +127,7 @@ struct ConversionView: View {
         }
     }
 
+   // Section 2 - Converted value and unit
     private var convertToSection: some View {
         Section(header: Text("To").textCase(.uppercase) ) {
             HStack {
@@ -143,7 +149,9 @@ struct ConversionView: View {
         }
     }
 
+   // Section 3 - User selects format of result shown in Section 2
     private var formatResultSection: some View {
+       // Candidate for refactoring since portions of this are repeated in SettingsView
         Section(header: Text("Format Result")) {
 
             Picker("Result Format", selection: $format) {
@@ -162,13 +170,18 @@ struct ConversionView: View {
 
     }
 
+   // Section 4 - User can toggle on/off Scientific Notation
     private var notationSection: some View {
+       // Candidate for refactoring since this is repeated in ConversionView
         Section(header: Text("Notation")) {
             Toggle("Scientific Notation", isOn: $useScientificNotation).accentColor(.red)
         }
     }
 
-    private var keyBoardButton: some View {
+   /// Button for dismissing the keyboard
+   ///
+   /// Keyboard is also dismissed by user touching outside of TextField
+    private var keyboardButton: some View {
         Button(action: self.hideKeyboard) {
             Image(systemName: "keyboard")
         }
@@ -177,6 +190,7 @@ struct ConversionView: View {
 
     // MARK: - Other properties
 
+   /// The unit  being converting `from` in this type of conversion
     private var defaultFromUnit: Dimension {
         switch conversionType {
             case .length: return UnitLength.feet
@@ -187,6 +201,7 @@ struct ConversionView: View {
         }
     }
 
+   /// The unit  being converted `to` in this type of conversion
     private var defaultToUnit: Dimension {
         switch conversionType {
             case .length: return UnitLength.meters
@@ -197,6 +212,7 @@ struct ConversionView: View {
         }
     }
 
+   /// The array of units to be supplied to the Picker
     private var pickerUnits: [Dimension] {
         switch conversionType {
             case .length: return LengthUnits.all
@@ -209,7 +225,7 @@ struct ConversionView: View {
 
     // MARK: - Other Methods
 
-    /// Save this conversion to the history
+    /// Saves the conversion to the history
     private func save() {
         // user didn't enter value into TextField, nothing to save
         if inputValue.isEmpty { return }

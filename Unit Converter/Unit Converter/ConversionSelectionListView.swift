@@ -8,14 +8,17 @@
 import SwiftUI
 import Foundation
 
+/// The list of conversion types available. Shown from tab in ContentView
 struct ConversionSelectionListView: View {
     @EnvironmentObject var dataController: DataController
 
+   /// A static string constant for use in identifying the Tab selected in ContentView
     static let tag: String? = "ConversionSelectionListView"
 
-    let accentColor = Color.accentColor
+    private let accentColor = Color.accentColor
 
-    @State var showingSettings: Bool = false
+   // Bool for showing the Settings view from tool bar button
+    @State private var showingSettings: Bool = false
 
     var body: some View {
         ZStack {
@@ -24,6 +27,7 @@ struct ConversionSelectionListView: View {
                     NavigationLink(destination: ConversionView(type: type)) {
                         Label(type.string, systemImage: type.imageName)
                             .foregroundColor(accentColor)
+                            .accessibilityHint("Tap to convert \(type.string)")
                     }
                 }
                 .navigationTitle("Unit Converter")
@@ -38,13 +42,14 @@ struct ConversionSelectionListView: View {
         })
     }
 
+   // The Settings Button for the tool bar
     private var settingsButton: some View {
         Button {
             showingSettings.toggle()
         } label: {
             Image(systemName: "gearshape")
         }
-        .accessibilityLabel(Text("Open Settings"))
+        .accessibilityLabel("Open Settings")
     }
 }
 

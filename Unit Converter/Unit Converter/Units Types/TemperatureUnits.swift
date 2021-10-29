@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Defines attributes for Temperature conversions
 struct TemperatureUnits: UnitProtocol {
 
     static var imageName: String { "thermometer" }

@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Defines attributes for Length conversions
 struct LengthUnits: UnitProtocol {
 
     static var imageName: String { "ruler" }

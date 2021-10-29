@@ -17,8 +17,9 @@ import SwiftUI
 //      resultValue Double
 //      type        int16       (length, mass, volume, temperature, etc.)
 
+/// This extension to the Conversion class created by Core Data attributes are
+/// helpers to unwrap optionals from Core Data.
 extension Conversion {
-    // Most of these are helpers to unwrap optionals from Core Data
 
     enum SortOrder {
         case creationDate, conversionType
@@ -35,7 +36,7 @@ extension Conversion {
         return type
     }
 
-    /// Returns the `String` for the `conversionType` for UI presentation, like "Length (Distance)"
+    /// The `String` for the `conversionType` for UI presentation, like "Length (Distance)"
     var conversionTypeString: String {
         let type = ConversionType(rawValue: Int(type))
         let returnString = type?.string ?? ""
@@ -44,8 +45,9 @@ extension Conversion {
 
     // MARK: - Original (inputValue and inputUnit)
 
-    /// No unwrapping necessary; just provides consistent interface
-    var conversionInputValue: Double { inputValue }
+   /// The "from" value provided by the user
+   var conversionInputValue: Double { inputValue }
+   // No unwrapping necessary; just provides consistent interface
 
     /// *"ft"* or *"ºC"*
     var conversionInputSymbol: String { inputUnit ?? ""}
@@ -55,7 +57,7 @@ extension Conversion {
         "\(inputValue) \(conversionInputSymbol)"
     }
 
-    /// Converts `Double` value to a `String`
+    /// The input value as a `String`
     var conversionInputValueString: String {
         String(inputValue)
     }
@@ -66,8 +68,8 @@ extension Conversion {
     }
 
     ///  Provides original input value as a `Measurement` object
-    ///  This is buggy. See FB9708766.
     var originalAsMeasurement: Measurement<Dimension> {
+       //  This is buggy. See FB9708766.
         let measurement = Measurement(value: inputValue, unit: conversionInputUnit )
         return measurement
     }
@@ -84,11 +86,11 @@ extension Conversion {
     var conversionResultValue: Double { resultValue }
 
     /// *"ft"* or *"ºC"*
-    var coversionResultSymbol: String { resultUnit ?? ""}
+    var conversionResultSymbol: String { resultUnit ?? ""}
 
     /// In the format of *12 ft* or *5.3 m*
     var conversionResultAsString: String {
-         "\(resultValue) \(coversionResultSymbol)"
+         "\(resultValue) \(conversionResultSymbol)"
     }
 
     /// This computed property seems to insert a bug into the app. See FB9708766
@@ -97,8 +99,8 @@ extension Conversion {
     }
 
     ///  Provides result value as a `Measurement` object
-    ///  This is buggy. See FB9708766.
     var resultAsMeasurement: Measurement<Dimension> {
+       //  This is buggy. See FB9708766.
         let measurement = Measurement(value: resultValue, unit: conversionInputUnit )
         return measurement
     }
@@ -118,7 +120,7 @@ extension Conversion {
     // MARK: - Methods
 
     /// This method returns the `measurement` parameter as string using specified significant digits.
-    /// - Parameter measurement: A Measurement object for stringify
+    /// - Parameter measurement: A Measurement object to stringify
     /// - Parameter sigDigits: (Optional) number of significant digits to use. Default value is 5.
     /// - Returns: A string representatin of the `measurement`in the format of "*1.2345 ºC*"
     private func formatAsString(_ measurement: Measurement<Dimension>, sigDigits: Int = 5) -> String {
@@ -137,4 +139,16 @@ extension Conversion {
         return "\(number ?? "NAN") \(measurement.unit.symbol)"
     }
 
+   static var sample: Conversion {
+      let item = Conversion()
+      item.type = Int16(Int.random(in: 0..<ConversionType.allCases.count))
+      item.date = Date()
+      item.inputUnit = UnitTemperature.fahrenheit.symbol
+      item.inputValue = Double.random(in: 0...500.0)
+      item.resultValue = Double.pi * Double.random(in: 0...5)
+      item.resultUnit = UnitTemperature.celsius.symbol
+      item.notes = "This conversion is a sample conversion."
+      return item
+   }
 }
+

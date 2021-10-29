@@ -7,7 +7,10 @@
 
 import SwiftUI
 
+/// The main view with Tab Bar (2 tabs)
 struct ContentView: View {
+
+   /// The most recently chosen tab is kept in SceneStorage.
     @SceneStorage("selectedView") var selectedView: String?
 
     var body: some View {

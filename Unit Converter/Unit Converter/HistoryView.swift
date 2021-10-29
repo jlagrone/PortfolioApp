@@ -10,7 +10,6 @@ import CoreData
 
 struct HistoryView: View {
     @EnvironmentObject var dataController: DataController
-    @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.presentationMode) var presentationMode
 
     @State private var showingSortOrder = false
@@ -20,10 +19,13 @@ struct HistoryView: View {
     @State private var filterBy: ConversionType?
     @State private var showingClearConfirmation = false
 
+   /// A static string constant for use in identifying the Tab selected in ContentView
     static let tag: String? = "HistoryView" // needed to restore state
 
+   /// Fetch history of [Conversion]
     let conversions: FetchRequest<Conversion>
 
+   /// Initialize history with sorting descending by date
     init() {
         conversions = FetchRequest<Conversion>(entity: Conversion.entity(),
                                                sortDescriptors: [NSSortDescriptor(keyPath: \Conversion.date,
@@ -31,6 +33,7 @@ struct HistoryView: View {
                                                                 ])
     }
 
+   /// Button to clear all history
     private var clearButton: some View {
         Button {
             showingClearConfirmation.toggle()
@@ -40,6 +43,7 @@ struct HistoryView: View {
         .accessibilityLabel("Clear history.")
     }
 
+   /// Button to show Sort By dialog
     private var sortButton: some View {
         Button {
             showingSortOrder.toggle()
@@ -48,9 +52,14 @@ struct HistoryView: View {
         }
     }
 
+   /// Filter button image name.
+   ///
+   /// Filled version of image if the filter is ON.
     private var filterButtonImageName: String {
         (filterBy == nil) ? "line.3.horizontal.decrease.circle" : "line.3.horizontal.decrease.circle.fill"
     }
+
+   /// Filter button to show Filter By dialog
     private var filterButton: some View {
         Button {
             showingFilterBy.toggle()
@@ -59,6 +68,7 @@ struct HistoryView: View {
         }
     }
 
+   /// Button Group for Sorting options
     private var sortConfirmationDialogButtons: some View {
         Group {
             Button("Creation Date (Ascending)") { sortOrder = .creationDate; sortAscending = true }
@@ -69,6 +79,7 @@ struct HistoryView: View {
         }
     }
 
+   /// Button Group for Filter options
     private var filterConfirmationDialogButtons: some View {
         Group {
             Button("None") { filterBy = nil }
@@ -79,8 +90,10 @@ struct HistoryView: View {
         }
     }
 
+   /// Sorted and/or Filtered array of Conversion history items
     private var items: [Conversion] {
         var array: [Conversion]
+
         switch sortOrder {
             case .creationDate:
                 array = conversions.wrappedValue.sorted(by: \Conversion.conversionDate,
@@ -97,7 +110,8 @@ struct HistoryView: View {
         return array
     }
 
-    var toolbarItems: some ToolbarContent {
+   /// Toolbar buttons for Sort, Filter, and Clear history
+    private var toolbarItems: some ToolbarContent {
         Group {
             ToolbarItemGroup(placement: .navigationBarLeading) {
                 sortButton
@@ -138,19 +152,23 @@ struct HistoryView: View {
         }
     }
 
-    func deleteItem(offsets: IndexSet) {
+   /// Delete specified items from persistent storage
+   /// - Parameter offsets: set of indices of items to remove
+    private func deleteItem(offsets: IndexSet) {
         let allItems = items
 
         withAnimation {
             for offset in offsets {
                 let item = allItems[offset]
-                print("DEBUG_RC", item.conversionType.string)
                 dataController.delete(item)
             }
             dataController.save()
         }
     }
 
+   /// Delete all item from persistent storage
+   ///
+   /// This should happen after user has confirmed deletion of all items.
     private func clearDataBase() {
         dataController.deleteAll()
         dataController.save()

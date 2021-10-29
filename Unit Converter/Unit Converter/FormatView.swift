@@ -7,17 +7,19 @@
 
 import SwiftUI
 
+/// Display the slider for choosing  Decimal notation or  Significant Digits and describe choice below.
 struct FormatView: View {
 
     @Binding var format: OutputFormat
     @Binding var significantDigits: Double
     @Binding var fractionPrecision: Double
 
-    var lowerLimitDecimals = 0.0
-    var lowerLimitSignificant = 1.0
-    var upperLimit = 10.0
+   /// Lower and upper limits for slider
+   var lowerLimitDecimals = 0.0
+   var lowerLimitSignificant = 1.0
+   var upperLimit = 10.0 // arbitrary but reasonable
 
-    var decimalPlacesView: some View {
+    private var decimalPlacesView: some View {
         VStack {
             HStack {
                 Text("\(Int(lowerLimitDecimals))").font(.caption)
@@ -33,7 +35,7 @@ struct FormatView: View {
         }
     }
 
-    var scientificeNotationView: some View {
+    private var scientificeNotationView: some View {
         VStack {
             HStack {
                 Text("\(Int(lowerLimitSignificant))").font(.caption)

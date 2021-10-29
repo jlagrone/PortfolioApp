@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Defines attributes for Pressure conversions
 struct PressureUnits: UnitProtocol {
 
     static var imageName: String { "barometer" }

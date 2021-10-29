@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Defines attributes for Mass (Weight) conversions
 struct MassUnits: UnitProtocol {
 
     static var imageName: String { "scalemass" }

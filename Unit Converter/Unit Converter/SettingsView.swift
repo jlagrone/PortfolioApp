@@ -15,6 +15,8 @@ struct SettingsView: View {
 
     private var sampleNumber = 123456.7890123
 
+   /// A string of the sampleNumber formatted to current Settings for decimal/significant digits,
+   /// scientific notation for user to see a preview how their Settings affect the value.
     private var sampleValue: String {
 
         let fractionPrecision = userSettings.fractionPrecision
@@ -39,7 +41,9 @@ struct SettingsView: View {
         return "\(valueString)"
     }
 
+   /// Picker and option for Decimal or Significant digits
     var formatResultView: some View {
+       // Candidate for refactoring since this is repeated in ConversionView
         Group {
             Picker("Result Format", selection: $userSettings.outputFormat) {
                 Text("Decimal Places").tag(OutputFormat.decimalPlaces)
@@ -74,6 +78,7 @@ struct SettingsView: View {
                 }
 
                 Section(header: Text("Notation")) {
+                   // Candidate for refactoring since this is repeated in ConversionView
                     Toggle("Scientific Notation", isOn: $userSettings.useScientificNotation)
                         .accessibilityLabel("\(userSettings.useScientificNotation ? "On" : "Off")")
                 }

@@ -22,7 +22,6 @@ struct HistoryItemView: View {
     }
 
     private var accessibilityLabelText: String {
-
         return "Converted \(inputString) \(TO_STRING) \(resultString), \(dateString)"
     }
 
@@ -44,6 +43,6 @@ struct HistoryItemView: View {
 
 // struct HistoryItemView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        HistoryItemView()
+//       HistoryItemView(conversionItem: Conversion.sample)
 //    }
 // }

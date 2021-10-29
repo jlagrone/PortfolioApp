@@ -8,12 +8,20 @@
 import CoreData
 import SwiftUI
 
+/// An environment singleton for managing Core Data stack, handling fetch requests, sample data, saving and deleting,
 class DataController: ObservableObject {
+
+   /// The lone CloudKit container for storing all data.
    let container: NSPersistentCloudKitContainer
 
+   /// Initializes a data controller, either in memory for testing and previewing, or
+   ///  on permanent storage in regular use. Defaults to permanent storage.
+   /// - Parameter inMemory: Whether to store data in temporary memory or not.
    init(inMemory: Bool = false) {
       container = NSPersistentCloudKitContainer(name: "Main")
 
+      //   For testing and previewing, create temporary database and write to /dev/null
+      //   so data is destroying on app exit.
       if inMemory {
          container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
       }
@@ -39,8 +47,10 @@ class DataController: ObservableObject {
       return dataController
    }()
 
-   /// Create some sample data in memory. FOR USE WITH TESTING ONLY.
-   /// - Throws: if the `viewContext` fails to save
+   /// Creates some example items to make testing easier.
+   ///
+   /// FOR USE WITH TESTING ONLY.
+   /// - Throws: An NSError sent from calling save() on the NSManagedObjectContext
    func createSampleData() throws {
       let viewContext = container.viewContext
 
@@ -58,14 +68,15 @@ class DataController: ObservableObject {
       try viewContext.save()
    }
 
-   /// Save all changes
+   /// Saves Core Data context iff there are changes. Errors caused by saving are silently ignored since all
+   /// attributes are optional.
    func save() {
       if container.viewContext.hasChanges {
          try? container.viewContext.save()
       }
    }
 
-   /// Delete specified object
+   /// Deletes specified object
    /// - Parameter object: object to be deleted
    func delete(_ object: NSManagedObject) {
        if let object = object as? Conversion {
@@ -74,7 +85,7 @@ class DataController: ObservableObject {
       container.viewContext.delete(object)
    }
 
-   /// Delete all projects in the persistent store. 
+   /// Deletes all projects in the persistent store.
    func deleteAll() {
       let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Conversion.fetchRequest()
       let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)

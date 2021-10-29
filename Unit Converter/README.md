@@ -19,5 +19,5 @@ The app tries to leverage Apple's Measurement API for doing conversions between 
 Metric and Imperial systems. However, I encountered issues with the Measurement and Unit classes. 
 See Apple Feedback FB9708766 and FB9711946.
 
-
+Unit Converter is localized for Spanish and implements some accessibility for Voice Over. Users can set preferences for output such as formatting the result of concersion using Scientific Notation or Significant Digits.
     
