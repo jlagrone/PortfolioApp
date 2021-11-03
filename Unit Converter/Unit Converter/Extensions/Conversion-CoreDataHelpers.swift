@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 import SwiftUI
 
 //  Conversion properties in Core Data model:
@@ -24,6 +25,26 @@ extension Conversion {
     enum SortOrder {
         case creationDate, conversionType
     }
+
+   convenience init(type: ConversionType, date: Date,
+                    inputUnit: String, inputValue: Double,
+                    resultUnit: String, resultValue: Double,
+                    context: NSManagedObjectContext? = nil) {
+
+      if let context = context {
+         self.init(context: context)
+      } else {
+         self.init()
+      }
+
+      self.type = type.int16Value
+      self.date = date
+      self.inputUnit = inputUnit
+      self.inputValue = inputValue
+      self.resultUnit = resultUnit
+      self.resultValue = resultValue
+      self.notes = ""
+   }
 
     // MARK: - Date
     var conversionDate: Date { date ?? Date("1/1/1970") }
@@ -80,7 +101,7 @@ extension Conversion {
         return string
     }
 
-    // MARK: - Result (resultValue and resultUnit
+    // MARK: - Result (resultValue and resultUnit)
 
     /// No unwrapping necessary; just provides consistent interface
     var conversionResultValue: Double { resultValue }
@@ -140,15 +161,6 @@ extension Conversion {
     }
 
    static var sample: Conversion {
-      let item = Conversion()
-      item.type = Int16(Int.random(in: 0..<ConversionType.allCases.count))
-      item.date = Date()
-      item.inputUnit = UnitTemperature.fahrenheit.symbol
-      item.inputValue = Double.random(in: 0...500.0)
-      item.resultValue = Double.pi * Double.random(in: 0...5)
-      item.resultUnit = UnitTemperature.celsius.symbol
-      item.notes = "This conversion is a sample conversion."
-      return item
+      LengthUnits.sampleConversion()
    }
 }
-

@@ -54,17 +54,12 @@ class DataController: ObservableObject {
    func createSampleData() throws {
       let viewContext = container.viewContext
 
-      for counter in 0...4 {
-         let conversion = Conversion(context: viewContext)
-         conversion.type = Int16(Int.random(in: 0..<ConversionType.allCases.count))
-         conversion.date = Date()
-         conversion.inputUnit = UnitTemperature.fahrenheit.symbol
-         conversion.inputValue = Double.random(in: 0...500.0)
-         conversion.resultValue = Double.pi * Double.random(in: 0...5)
-         conversion.resultUnit = UnitTemperature.celsius.symbol
-         conversion.notes = "This conversion is sample \(counter)."
-      }
-
+      let lengthConversion = LengthUnits.sampleConversion(context: viewContext)
+      let massConversion = MassUnits.sampleConversion(context: viewContext)
+      let volumeConverstion = VolumeUnits.sampleConversion(context: viewContext)
+      let pressureConversion = PressureUnits.sampleConversion(context: viewContext)
+      let temperatureConversion = TemperatureUnits.sampleConversion(context: viewContext)
+      
       try viewContext.save()
    }
 
@@ -90,5 +85,9 @@ class DataController: ObservableObject {
       let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Conversion.fetchRequest()
       let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
       _ = try? container.viewContext.execute(batchDeleteRequest)
+   }
+
+   func count<T>(for fetchRequest: NSFetchRequest<T>) -> Int {
+      (try? container.viewContext.count(for: fetchRequest)) ?? 0
    }
 }

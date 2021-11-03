@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 /// Defines attributes for Temperature conversions
 struct TemperatureUnits: UnitProtocol {
@@ -26,4 +27,17 @@ struct TemperatureUnits: UnitProtocol {
         }
     }
 
+   static let sampleMeasurement = Measurement(value: 32.0, unit: UnitTemperature.fahrenheit)
+
+   static func sampleConversion(context: NSManagedObjectContext) -> Conversion {
+      let resultUnit = UnitTemperature.celsius
+      let result = sampleMeasurement.converted(to: resultUnit)
+      return Conversion(type: ConversionType.temperature,
+                        date: Date(),
+                        inputUnit: sampleMeasurement.unit.symbol,
+                        inputValue: sampleMeasurement.value,
+                        resultUnit: result.unit.symbol,
+                        resultValue: result.value,
+                        context: context)
+   }
 }

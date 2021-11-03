@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 /// Defines attributes for Length conversions
 struct LengthUnits: UnitProtocol {
@@ -27,4 +28,17 @@ struct LengthUnits: UnitProtocol {
         }
     }
 
+   static let sampleMeasurement = Measurement(value: Double.pi, unit: UnitLength.meters)
+
+   static func sampleConversion(context: NSManagedObjectContext? = nil) -> Conversion {
+      let resultUnit = UnitLength.millimeters
+      let result = sampleMeasurement.converted(to: resultUnit)
+      return Conversion(type: ConversionType.length,
+                        date: Date(),
+                        inputUnit: sampleMeasurement.unit.symbol,
+                        inputValue: sampleMeasurement.value,
+                        resultUnit: result.unit.symbol,
+                        resultValue: result.value,
+                        context: context)
+   }
 }

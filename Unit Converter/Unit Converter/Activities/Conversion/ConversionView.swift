@@ -191,7 +191,7 @@ struct ConversionView: View {
     // MARK: - Other properties
 
    /// The unit  being converting `from` in this type of conversion
-    private var defaultFromUnit: Dimension {
+   var defaultFromUnit: Dimension {
         switch conversionType {
             case .length: return UnitLength.feet
             case .volume: return UnitVolume.gallons
@@ -202,7 +202,7 @@ struct ConversionView: View {
     }
 
    /// The unit  being converted `to` in this type of conversion
-    private var defaultToUnit: Dimension {
+   var defaultToUnit: Dimension {
         switch conversionType {
             case .length: return UnitLength.meters
             case .volume: return UnitVolume.liters
@@ -213,7 +213,7 @@ struct ConversionView: View {
     }
 
    /// The array of units to be supplied to the Picker
-    private var pickerUnits: [Dimension] {
+   var pickerUnits: [Dimension] {
         switch conversionType {
             case .length: return LengthUnits.all
             case .volume: return VolumeUnits.all
