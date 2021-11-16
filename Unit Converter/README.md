@@ -20,4 +20,9 @@ Metric and Imperial systems. However, I encountered issues with the Measurement 
 See Apple Feedback FB9708766 and FB9711946.
 
 Unit Converter is localized for Spanish and implements some accessibility for Voice Over. Users can set preferences for output such as formatting the result of concersion using Scientific Notation or Significant Digits.
+
+### Possible Future Additions
     
+* Add ability to copy/share item from history.
+* Add unit tests
+* Add ability to reuse item from history and edit it. e.g., if the original conversion was meters to yards, make it meters to feet.

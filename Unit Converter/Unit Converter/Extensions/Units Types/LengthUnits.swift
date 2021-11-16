@@ -20,7 +20,7 @@ struct LengthUnits: UnitProtocol {
 
     static let other: [UnitLength] = [.scandinavianMiles, .lightyears, .astronomicalUnits, .parsecs]
 
-    static var all: [UnitLength] {
+    static var all: [Dimension] {
         if usesImperial {
             return imperial + metric + other
         } else {

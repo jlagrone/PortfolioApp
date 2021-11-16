@@ -19,7 +19,7 @@ struct TemperatureUnits: UnitProtocol {
 
     static let other: [UnitTemperature] = []
 
-    static var all: [UnitTemperature] {
+    static var all: [Dimension] {
         if usesImperial {
             return imperial + metric + other
         } else {

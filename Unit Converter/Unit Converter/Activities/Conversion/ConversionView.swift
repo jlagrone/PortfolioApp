@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import os
 
 /// Allows user to enter a value and unit to convert to another unit.
 ///
@@ -30,27 +31,27 @@ struct ConversionView: View {
     private var resultValue: String {
         let oldValue = Measurement(value: Double(inputValue) ?? 0, unit: fromUnit)
         let newValue = oldValue.converted(to: toUnit)
-        let numberformatter = NumberFormatter()
-        numberformatter.roundingMode = .halfUp
+
+        let numberFormatter = NumberFormatter()
+        numberFormatter.roundingMode = .halfUp
 
         switch format {
             case .decimalPlaces:
-                numberformatter.maximumFractionDigits = Int(fractionPrecision)
+                numberFormatter.maximumFractionDigits = Int(fractionPrecision)
             case .significantDigits:
-                numberformatter.usesSignificantDigits = true
-                numberformatter.maximumSignificantDigits = Int(significantDigits)
+                numberFormatter.usesSignificantDigits = true
+                numberFormatter.maximumSignificantDigits = Int(significantDigits)
         }
 
-        if useScientificNotation { numberformatter.numberStyle = .scientific }
+        if useScientificNotation { numberFormatter.numberStyle = .scientific }
 
-        /* Bug reported: FB9708766
         let formatter = MeasurementFormatter()
-        formatter.numberFormatter = numberformatter
+        formatter.numberFormatter = numberFormatter
         formatter.unitOptions = .providedUnit
         formatter.unitStyle = .long
-         */
-        let valueString = numberformatter.string(from: newValue.value as NSNumber) ?? ""
-        return "\(valueString)"
+
+        return formatter.string(from: newValue)
+
     }
 
    /// Stringified ConversionType for Navigation Title
@@ -100,10 +101,12 @@ struct ConversionView: View {
             self.hideKeyboard()
         })
         .toolbar {
-                keyboardButton
+           ToolbarItemGroup(placement: .navigationBarTrailing) {
+              saveButton
+              keyboardButton
+           }
         }
         .navigationTitle(navtitle)
-        .onDisappear(perform: save)
         .navigationBarTitleDisplayMode(.automatic)
 
     }
@@ -188,6 +191,13 @@ struct ConversionView: View {
         .accessibilityLabel("Hide keyboard.")
     }
 
+   /// Button to save to History
+   private var saveButton: some View {
+      Button(action: self.save) {
+         Text("Save")
+      }
+      .accessibilityLabel("Save to History.")
+   }
     // MARK: - Other properties
 
    /// The unit  being converting `from` in this type of conversion
@@ -243,7 +253,8 @@ struct ConversionView: View {
         do {
             try viewContext.save()
         } catch let error {
-            print("Can't save item data: ", error.localizedDescription)
+           os_log("Can't save item data: %@", log: log_general,
+                  type: .error, error.localizedDescription)
         }
         dataController.save()
     }

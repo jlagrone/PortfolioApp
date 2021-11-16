@@ -18,7 +18,7 @@ class DataController: ObservableObject {
    ///  on permanent storage in regular use. Defaults to permanent storage.
    /// - Parameter inMemory: Whether to store data in temporary memory or not.
    init(inMemory: Bool = false) {
-      container = NSPersistentCloudKitContainer(name: "Main")
+      container = NSPersistentCloudKitContainer(name: "Main", managedObjectModel: Self.model)
 
       //   For testing and previewing, create temporary database and write to /dev/null
       //   so data is destroying on app exit.
@@ -34,7 +34,19 @@ class DataController: ObservableObject {
       }
    }
 
-    /// For use in SwiftUI previews
+   static let model: NSManagedObjectModel = {
+      guard let url = Bundle.main.url(forResource: "Main", withExtension: "momd") else {
+         fatalError("Faile to locate model file.")
+      }
+
+      guard let managedObjectModel = NSManagedObjectModel(contentsOf: url) else {
+         fatalError("Failed to load model file.")
+      }
+
+      return managedObjectModel
+   }()
+
+    /// For use in SwiftUI previews and Testing
     static var preview: DataController = {
       let dataController = DataController(inMemory: true)
 
@@ -54,12 +66,12 @@ class DataController: ObservableObject {
    func createSampleData() throws {
       let viewContext = container.viewContext
 
-      let lengthConversion = LengthUnits.sampleConversion(context: viewContext)
-      let massConversion = MassUnits.sampleConversion(context: viewContext)
-      let volumeConverstion = VolumeUnits.sampleConversion(context: viewContext)
-      let pressureConversion = PressureUnits.sampleConversion(context: viewContext)
-      let temperatureConversion = TemperatureUnits.sampleConversion(context: viewContext)
-      
+      _ = LengthUnits.sampleConversion(context: viewContext)
+      _ = MassUnits.sampleConversion(context: viewContext)
+      _ = VolumeUnits.sampleConversion(context: viewContext)
+      _ = PressureUnits.sampleConversion(context: viewContext)
+      _ = TemperatureUnits.sampleConversion(context: viewContext)
+
       try viewContext.save()
    }
 

@@ -14,7 +14,7 @@ struct HistoryItemView: View {
     // swiftlint:disable identifier_name
     private let TO_STRING = NSLocalizedString("to", comment: "'to' in History Item View")
     private var inputString: String { conversionItem.conversionInputAsString }
-    private var resultString: String { String(describing: conversionItem.conversionResultAsString) }
+    private var resultString: String { conversionItem.conversionFormattedResultAsString }
     private var dateString: String { conversionItem.conversionDate.shortDescription }
 
     var mainText: String {
@@ -22,7 +22,7 @@ struct HistoryItemView: View {
     }
 
     private var accessibilityLabelText: String {
-        return "Converted \(inputString) \(TO_STRING) \(resultString), \(dateString)"
+        return "Converted \(inputString) \(TO_STRING) \(resultString) on \(dateString)"
     }
 
     var body: some View {

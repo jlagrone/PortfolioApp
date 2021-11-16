@@ -20,7 +20,7 @@ struct MassUnits: UnitProtocol {
 
     static let other: [UnitMass] = [.carats, .ouncesTroy]
 
-    static var all: [UnitMass] {
+    static var all: [Dimension] {
         if usesImperial {
             return imperial + metric + other
         } else {

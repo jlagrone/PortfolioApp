@@ -22,7 +22,7 @@ struct VolumeUnits: UnitProtocol {
                                         .imperialGallons,
                                         .bushels, .cubicInches, .cubicFeet, .cubicYards, .cubicMiles,
                                         .acreFeet]
-   static var all: [UnitVolume] {
+   static var all: [Dimension] {
       if usesImperial {
          return imperial + metric
       } else {

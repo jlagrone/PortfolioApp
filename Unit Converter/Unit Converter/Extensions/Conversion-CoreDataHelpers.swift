@@ -83,14 +83,16 @@ extension Conversion {
         String(inputValue)
     }
 
-    /// This computed property seems to insert a bug into the app. See FB9708766
+    /// The unit converting FROM
     var conversionInputUnit: Dimension {
-        Dimension(symbol: inputUnit ?? "m")
+       guard let dimension = UnitProtocolHelper.dimension(of: conversionInputSymbol) else {
+          fatalError("Conversion input unit received a bad symbol: \(conversionInputSymbol)")
+       }
+       return dimension
     }
 
     ///  Provides original input value as a `Measurement` object
     var originalAsMeasurement: Measurement<Dimension> {
-       //  This is buggy. See FB9708766.
         let measurement = Measurement(value: inputValue, unit: conversionInputUnit )
         return measurement
     }
@@ -114,21 +116,26 @@ extension Conversion {
          "\(resultValue) \(conversionResultSymbol)"
     }
 
-    /// This computed property seems to insert a bug into the app. See FB9708766
+    /// The unit converting TO.
     var conversionResultUnit: Dimension {
-        Dimension(symbol: resultUnit ?? "m")
+       guard let dimension = UnitProtocolHelper.dimension(of: conversionResultSymbol) else {
+          fatalError("Conversion input unit received a bad symbol: \(conversionInputSymbol)")
+       }
+       return dimension
     }
 
     ///  Provides result value as a `Measurement` object
     var resultAsMeasurement: Measurement<Dimension> {
-       //  This is buggy. See FB9708766.
-        let measurement = Measurement(value: resultValue, unit: conversionInputUnit )
-        return measurement
+       let measurement = Measurement(value: inputValue, unit: conversionInputUnit )
+       let result = measurement.converted(to: conversionResultUnit)
+       print(#function, "input: \(measurement)", "result: \(result)")
+       return result
     }
 
     /// In the format of *12 ft* or *5.3 m, using significant digits*
     var conversionFormattedResultAsString: String {
         let string = formatAsString(resultAsMeasurement)
+       print("\t", #function, "[\(resultAsMeasurement)]", "[\(string)]")
         return string
     }
 
@@ -143,24 +150,27 @@ extension Conversion {
     /// This method returns the `measurement` parameter as string using specified significant digits.
     /// - Parameter measurement: A Measurement object to stringify
     /// - Parameter sigDigits: (Optional) number of significant digits to use. Default value is 5.
-    /// - Returns: A string representatin of the `measurement`in the format of "*1.2345 ºC*"
+    /// - Returns: A string representation of the `measurement`in the format of "*1.2345 ºC*"
     private func formatAsString(_ measurement: Measurement<Dimension>, sigDigits: Int = 5) -> String {
-        let numberformatter = NumberFormatter()
-        numberformatter.roundingMode = .halfUp
-        numberformatter.maximumSignificantDigits = sigDigits
+        let numberFormatter = NumberFormatter()
+        numberFormatter.roundingMode = .halfUp
+        numberFormatter.maximumSignificantDigits = sigDigits
 
-        // TODO: Revisit after response from Apple for Feedback
-        /*  This has a bug related to Unit and Dimension classes. Feedback reported to Apple: FB9708766 (16 Oct 2021)
-            let formatter = MeasurementFormatter()
-            formatter.numberFormatter = numberformatter
-            formatter.unitOptions = .providedUnit
-            formatter.string(from: measurement)
-         */
-        let number = numberformatter.string(from: measurement.value as NSNumber)
-        return "\(number ?? "NAN") \(measurement.unit.symbol)"
+       let formatter = MeasurementFormatter()
+       formatter.numberFormatter = numberFormatter
+       formatter.unitOptions = .providedUnit
+       let returnValue = formatter.string(from: measurement)
+       print(#function, "<\(returnValue)>", "<\(measurement)>")
+       return returnValue
+
+//        let number = numberformatter.string(from: measurement.value as NSNumber)
+//        return "\(number ?? "NAN") \(measurement.unit.symbol)"
     }
 
-   static var sample: Conversion {
-      LengthUnits.sampleConversion()
+   static var example: Conversion {
+      let controller = DataController.preview
+      let viewContext = controller.container.viewContext
+
+      return LengthUnits.sampleConversion(context: viewContext)
    }
 }

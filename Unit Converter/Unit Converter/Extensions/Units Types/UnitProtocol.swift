@@ -10,8 +10,8 @@ import Foundation
 /// Abstraction for reusing the *?Units* conversions
 protocol UnitProtocol {
 
-    static var imageName: String { get }
-
+   static var imageName: String { get }
+   static var all: [Dimension] { get }
 }
 
 extension UnitProtocol {
@@ -21,5 +21,36 @@ extension UnitProtocol {
         return ["US", "BZ", "MM"].contains(Locale.current.regionCode)
     }
 
-//    static var imageName: String { "" }
+   static func dimension(of symbol: String) -> Dimension? {
+      for unit in all where unit.symbol == symbol {
+         return unit
+      }
+      return nil
+   }
+}
+
+struct UnitProtocolHelper {
+   static func dimension(of symbol: String) -> Dimension? {
+      if let dimension = LengthUnits.dimension(of: symbol) {
+         return dimension
+      }
+
+      if let dimension = MassUnits.dimension(of: symbol) {
+         return dimension
+      }
+
+      if let dimension = PressureUnits.dimension(of: symbol) {
+         return dimension
+      }
+
+      if let dimension = TemperatureUnits.dimension(of: symbol) {
+         return dimension
+      }
+
+      if let dimension = VolumeUnits.dimension(of: symbol) {
+         return dimension
+      }
+
+      return nil
+   }
 }

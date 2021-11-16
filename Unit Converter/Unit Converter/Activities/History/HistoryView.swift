@@ -130,7 +130,11 @@ struct HistoryView: View {
                     Text("Can't find any conversions by \(filterBy.string).")
                 }
                 ForEach(items) { conversion in
-                    HistoryItemView(conversionItem: conversion)
+                   NavigationLink(destination:
+                                    ConversionView(item: conversion,
+                                                   type: ConversionType(rawValue: Int(conversion.type))!)) {
+                      HistoryItemView(conversionItem: conversion)
+                   }
                 }
                 .onDelete(perform: deleteItem)
             }

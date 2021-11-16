@@ -1,6 +1,6 @@
 # Unit Converter
 ***
-#### Copyright (c) 2021 Jim LaGrone
+#### Copyright ©2021 Jim LaGrone
 You can use the source code for Unit Converter according to the MIT license below. 
 All assets are excluded from this license, which means you are not allow to distribute them. 
 

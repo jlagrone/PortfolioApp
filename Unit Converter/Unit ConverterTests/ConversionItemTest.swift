@@ -20,7 +20,7 @@ class ConversionItemTest: BaseTestCase {
       XCTAssertEqual(dataController.count(for: Conversion.fetchRequest()), targetCount)
    }
 
-   func testDeletingItems() throws {
+   func testDeletingItem() throws {
       try dataController.createSampleData()
 
       let request = NSFetchRequest<Conversion>(entityName: "Conversion")
@@ -30,6 +30,14 @@ class ConversionItemTest: BaseTestCase {
       dataController.delete(items[0])
 
       XCTAssertEqual(dataController.count(for: Conversion.fetchRequest()), 4)
+   }
+
+   func testDeletingAllItems() throws {
+      try dataController.createSampleData()
+
+      dataController.deleteAll()
+
+      XCTAssertEqual(dataController.count(for: Conversion.fetchRequest()), 0)
    }
 
    func testAddingItem() throws {
@@ -48,6 +56,42 @@ class ConversionItemTest: BaseTestCase {
       _ = TemperatureUnits.sampleConversion(context: managedObjectContext)
 
       XCTAssertEqual(dataController.count(for: Conversion.fetchRequest()), 6)
+   }
 
+   func testExampleConversion() {
+      let conversion = Conversion.example
+      XCTAssertEqual(conversion.inputUnit, UnitLength.meters.symbol)
+      XCTAssertEqual(conversion.inputValue, Double.pi )
+
+   }
+
+   func testLengthItem() throws {
+      let length = LengthUnits.sampleMeasurement
+      XCTAssertEqual(length.unit, .meters)
+      XCTAssertEqual(length.value, Double.pi )
+   }
+
+   func testMassItem() throws {
+      let mass = MassUnits.sampleMeasurement
+      XCTAssertEqual(mass.unit, .grams)
+      XCTAssertEqual(mass.value, Double.pi )
+   }
+
+   func testTemperatureItem() throws {
+      let temperature = TemperatureUnits.sampleMeasurement
+      XCTAssertEqual(temperature.unit, .fahrenheit )
+      XCTAssertEqual(temperature.value, 32.0 )
+   }
+
+   func testVolumeItem() throws {
+      let volume = VolumeUnits.sampleMeasurement
+      XCTAssertEqual(volume.unit, .liters)
+      XCTAssertEqual(volume.value, Double.pi )
+   }
+
+   func testPressureItem() throws {
+      let pressure = PressureUnits.sampleMeasurement
+      XCTAssertEqual(pressure.unit, .bars)
+      XCTAssertEqual(pressure.value, Double.pi )
    }
 }

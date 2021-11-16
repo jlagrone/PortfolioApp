@@ -22,7 +22,7 @@ struct PressureUnits: UnitProtocol {
 
     static let other: [UnitPressure] = []
 
-    static var all: [UnitPressure] {
+    static var all: [Dimension] {
         if usesImperial {
             return imperial + metric + other
         } else {
