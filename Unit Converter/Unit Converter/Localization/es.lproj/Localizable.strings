@@ -38,14 +38,17 @@
 "Weight (Mass)" = "Peso (masa)";
 "Volume" = "Volumen";
 "Pressure" = "Presión";
+"Energy" = "Energía";
+"Power" = "Potencia";
 
 "Tap to convert %@" = "Toca para convertir %@";
-
 
 
 /* Conversion  */
 "Value" = "Valor";
 "Hide keyboard." = "Ocultar teclado.";
+"Save" = "Guardar";
+
 
 /* Filter option */
 "None" = "Ninguno";

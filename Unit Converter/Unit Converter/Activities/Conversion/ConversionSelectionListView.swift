@@ -29,10 +29,10 @@ struct ConversionSelectionListView: View {
                             .foregroundColor(accentColor)
                             .accessibilityHint("Tap to convert \(type.string)")
                     }
+//                    .accentColor(accentColor)
                 }
                 .navigationTitle("Unit Converter")
-                .navigationBarItems(
-                    trailing: settingsButton)
+                .navigationBarItems(trailing: settingsButton)
             }
             .accentColor(accentColor)
             .foregroundColor(accentColor)

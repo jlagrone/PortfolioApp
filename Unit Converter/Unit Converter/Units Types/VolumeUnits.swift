@@ -12,16 +12,20 @@ import CoreData
 struct VolumeUnits: UnitProtocol {
    static var imageName: String { "testtube.2" }
 
-   static let metric: [UnitVolume] = [.megaliters, .kiloliters, .liters, .deciliters, .centiliters,
-                                      .milliliters, .cubicKilometers, .cubicMeters, .cubicDecimeters,
-                                      .cubicMillimeters, .metricCups]
+   static let metric: [UnitVolume] =
+   [.megaliters, .kiloliters, .liters, .deciliters,
+    .centiliters, .milliliters, .cubicKilometers,
+    .cubicMeters, .cubicDecimeters, .cubicMillimeters,
+    .metricCups]
 
-   static let imperial: [UnitVolume] = [.teaspoons, .tablespoons, .fluidOunces, .cups, .pints,
-                                        .quarts, .gallons, .imperialTeaspoons, .imperialTablespoons,
-                                        .imperialFluidOunces, .imperialPints, .imperialQuarts,
-                                        .imperialGallons,
-                                        .bushels, .cubicInches, .cubicFeet, .cubicYards, .cubicMiles,
-                                        .acreFeet]
+   static let imperial: [UnitVolume] =
+   [.teaspoons, .tablespoons, .fluidOunces, .cups, .pints,
+    .quarts, .gallons, .imperialTeaspoons,
+    .imperialTablespoons, .imperialFluidOunces,
+    .imperialPints, .imperialQuarts, .imperialGallons,
+    .bushels, .cubicInches, .cubicFeet, .cubicYards,
+    .cubicMiles, .acreFeet]
+
    static var all: [Dimension] {
       if usesImperial {
          return imperial + metric

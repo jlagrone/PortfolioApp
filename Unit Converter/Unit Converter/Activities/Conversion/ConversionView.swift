@@ -54,7 +54,7 @@ struct ConversionView: View {
 
     }
 
-   /// Stringified ConversionType for Navigation Title
+    /// Stringified ConversionType for Navigation Title
     private var navtitle: String { self.conversionType.string }
 
     /// Types are length, temperature, volume, weight/mass, pressure
@@ -101,17 +101,17 @@ struct ConversionView: View {
             self.hideKeyboard()
         })
         .toolbar {
-           ToolbarItemGroup(placement: .navigationBarTrailing) {
-              saveButton
-              keyboardButton
-           }
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                saveButton
+                keyboardButton
+            }
         }
         .navigationTitle(navtitle)
         .navigationBarTitleDisplayMode(.automatic)
 
     }
 
-   // Section 1 - User input value and unit
+    // Section 1 - User input value and unit
     private var convertFromSection: some View {
         Section(header: Text("Convert").textCase(.uppercase) ) {
             HStack {
@@ -130,7 +130,7 @@ struct ConversionView: View {
         }
     }
 
-   // Section 2 - Converted value and unit
+    // Section 2 - Converted value and unit
     private var convertToSection: some View {
         Section(header: Text("To").textCase(.uppercase) ) {
             HStack {
@@ -152,9 +152,9 @@ struct ConversionView: View {
         }
     }
 
-   // Section 3 - User selects format of result shown in Section 2
+    // Section 3 - User selects format of result shown in Section 2
     private var formatResultSection: some View {
-       // Candidate for refactoring since portions of this are repeated in SettingsView
+        // Candidate for refactoring since portions of this are repeated in SettingsView
         Section(header: Text("Format Result")) {
 
             Picker("Result Format", selection: $format) {
@@ -173,17 +173,17 @@ struct ConversionView: View {
 
     }
 
-   // Section 4 - User can toggle on/off Scientific Notation
+    // Section 4 - User can toggle on/off Scientific Notation
     private var notationSection: some View {
-       // Candidate for refactoring since this is repeated in ConversionView
+        // Candidate for refactoring since this is repeated in ConversionView
         Section(header: Text("Notation")) {
             Toggle("Scientific Notation", isOn: $useScientificNotation).accentColor(.red)
         }
     }
 
-   /// Button for dismissing the keyboard
-   ///
-   /// Keyboard is also dismissed by user touching outside of TextField
+    /// Button for dismissing the keyboard
+    ///
+    /// Keyboard is also dismissed by user touching outside of TextField
     private var keyboardButton: some View {
         Button(action: self.hideKeyboard) {
             Image(systemName: "keyboard")
@@ -191,45 +191,51 @@ struct ConversionView: View {
         .accessibilityLabel("Hide keyboard.")
     }
 
-   /// Button to save to History
-   private var saveButton: some View {
-      Button(action: self.save) {
-         Text("Save")
-      }
-      .accessibilityLabel("Save to History.")
-   }
+    /// Button to save to History
+    private var saveButton: some View {
+        Button(action: self.save) {
+            Text("Save")
+        }
+        .accessibilityLabel("Save to History.")
+    }
     // MARK: - Other properties
 
-   /// The unit  being converting `from` in this type of conversion
-   var defaultFromUnit: Dimension {
+    /// The unit  being converting `from` in this type of conversion
+    var defaultFromUnit: Dimension {
         switch conversionType {
             case .length: return UnitLength.feet
             case .volume: return UnitVolume.gallons
             case .temperature: return UnitTemperature.fahrenheit
             case .mass: return UnitMass.pounds
             case .pressure: return UnitPressure.inchesOfMercury
+            case .energy: return UnitEnergy.joules
+            case .power: return UnitPower.horsepower
         }
     }
 
-   /// The unit  being converted `to` in this type of conversion
-   var defaultToUnit: Dimension {
+    /// The unit  being converted `to` in this type of conversion
+    var defaultToUnit: Dimension {
         switch conversionType {
             case .length: return UnitLength.meters
             case .volume: return UnitVolume.liters
             case .temperature: return UnitTemperature.celsius
             case .mass: return UnitMass.kilograms
             case .pressure: return UnitPressure.millibars
+            case .energy: return UnitEnergy.kilowattHours
+            case .power: return UnitPower.kilowatts
         }
     }
 
-   /// The array of units to be supplied to the Picker
-   var pickerUnits: [Dimension] {
+    /// The array of units to be supplied to the Picker
+    var pickerUnits: [Dimension] {
         switch conversionType {
             case .length: return LengthUnits.all
             case .volume: return VolumeUnits.all
             case .temperature: return TemperatureUnits.all
             case .mass: return MassUnits.all
             case .pressure: return PressureUnits.all
+            case .energy: return EnergyUnits.all
+            case .power: return PowerUnits.all
         }
     }
 
@@ -253,8 +259,8 @@ struct ConversionView: View {
         do {
             try viewContext.save()
         } catch let error {
-           os_log("Can't save item data: %@", log: log_general,
-                  type: .error, error.localizedDescription)
+            os_log("Can't save item data: %@", log: log_general,
+                   type: .error, error.localizedDescription)
         }
         dataController.save()
     }

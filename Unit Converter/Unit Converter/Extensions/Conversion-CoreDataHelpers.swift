@@ -128,14 +128,12 @@ extension Conversion {
     var resultAsMeasurement: Measurement<Dimension> {
        let measurement = Measurement(value: inputValue, unit: conversionInputUnit )
        let result = measurement.converted(to: conversionResultUnit)
-       print(#function, "input: \(measurement)", "result: \(result)")
        return result
     }
 
     /// In the format of *12 ft* or *5.3 m, using significant digits*
     var conversionFormattedResultAsString: String {
         let string = formatAsString(resultAsMeasurement)
-       print("\t", #function, "[\(resultAsMeasurement)]", "[\(string)]")
         return string
     }
 
@@ -160,7 +158,6 @@ extension Conversion {
        formatter.numberFormatter = numberFormatter
        formatter.unitOptions = .providedUnit
        let returnValue = formatter.string(from: measurement)
-       print(#function, "<\(returnValue)>", "<\(measurement)>")
        return returnValue
 
 //        let number = numberformatter.string(from: measurement.value as NSNumber)

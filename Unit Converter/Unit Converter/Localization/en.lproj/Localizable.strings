@@ -37,6 +37,8 @@
 "Weight (Mass)" = "Weight (Mass)";
 "Volume" = "Volume";
 "Pressure" = "Pressure";
+"Energy" = "Energy";
+"Power" = "Power";
 
 "Tap to convert %@" = "Tap to convert %@";
 

@@ -37,6 +37,8 @@
 		053E7DAF27332949007052C6 /* ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 053E7DAE27332949007052C6 /* ExtensionTests.swift */; };
 		05B9A1DD2724A04C0093300C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 05B9A1DF2724A04C0093300C /* Localizable.strings */; };
 		05CC346527444FAC003BCAB8 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CC346427444FAC003BCAB8 /* Logging.swift */; };
+		05F4DEB927975E2100C5DAFF /* EnergyUnits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4DEB827975E2100C5DAFF /* EnergyUnits.swift */; };
+		05F4DEBB2798757E00C5DAFF /* PowerUnits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4DEBA2798757E00C5DAFF /* PowerUnits.swift */; };
 		05F63516272AF45200F316AF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 05F63514272AF45200F316AF /* README.md */; };
 		05FB73BC2720962100BC2F54 /* Sequence-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FB73BB2720962100BC2F54 /* Sequence-Extension.swift */; };
 		05FB73C62723447000BC2F54 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 05FB73C82723447000BC2F54 /* Localizable.stringsdict */; };
@@ -88,6 +90,8 @@
 		05B9A1DE2724A04C0093300C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		05B9A1E02724A04E0093300C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		05CC346427444FAC003BCAB8 /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = SOURCE_ROOT; };
+		05F4DEB827975E2100C5DAFF /* EnergyUnits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnergyUnits.swift; sourceTree = "<group>"; };
+		05F4DEBA2798757E00C5DAFF /* PowerUnits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerUnits.swift; sourceTree = "<group>"; };
 		05F63514272AF45200F316AF /* README.md */ = {isa = PBXFileReference; explicitFileType = net.daringfireball.markdown; fileEncoding = 4; path = README.md; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
 		05FB73BB2720962100BC2F54 /* Sequence-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence-Extension.swift"; sourceTree = "<group>"; };
 		05FB73C72723447000BC2F54 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -140,6 +144,7 @@
 				053E7D9B272C70CF007052C6 /* Localization */,
 				053E7D9A272C7098007052C6 /* Configuration */,
 				053E7D96272C703C007052C6 /* Activities */,
+				051886CC2718AA2D00935AB8 /* Units Types */,
 				05FB73BD2720963300BC2F54 /* Extensions */,
 				051886AC271762FB00935AB8 /* UnitConverterApp.swift */,
 				051886BD2717754800935AB8 /* DataController.swift */,
@@ -169,12 +174,14 @@
 		051886CC2718AA2D00935AB8 /* Units Types */ = {
 			isa = PBXGroup;
 			children = (
+				05F4DEBA2798757E00C5DAFF /* PowerUnits.swift */,
 				051886CD2718AA5800935AB8 /* UnitProtocol.swift */,
 				051886D02718AA5800935AB8 /* LengthUnits.swift */,
 				051886CF2718AA5800935AB8 /* MassUnits.swift */,
 				051886D12718AA5800935AB8 /* PressureUnits.swift */,
 				051886D22718AA5900935AB8 /* TemperatureUnits.swift */,
 				051886CE2718AA5800935AB8 /* VolumeUnits.swift */,
+				05F4DEB827975E2100C5DAFF /* EnergyUnits.swift */,
 			);
 			path = "Units Types";
 			sourceTree = "<group>";
@@ -260,7 +267,6 @@
 		05FB73BD2720963300BC2F54 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				051886CC2718AA2D00935AB8 /* Units Types */,
 				051886CA271885A800935AB8 /* Conversion-CoreDataHelpers.swift */,
 				051886EB271A0B6A00935AB8 /* Date-Extension.swift */,
 				05FB73BB2720962100BC2F54 /* Sequence-Extension.swift */,
@@ -404,6 +410,7 @@
 				051886E32718AF2500935AB8 /* ConversionView.swift in Sources */,
 				05FB73BC2720962100BC2F54 /* Sequence-Extension.swift in Sources */,
 				051886EA2718F2FA00935AB8 /* HistoryItemView.swift in Sources */,
+				05F4DEB927975E2100C5DAFF /* EnergyUnits.swift in Sources */,
 				051886E62718B1BE00935AB8 /* FormatView.swift in Sources */,
 				051886D82718AA5900935AB8 /* TemperatureUnits.swift in Sources */,
 				051886C92718767500935AB8 /* HistoryView.swift in Sources */,
@@ -413,6 +420,7 @@
 				051886E12718AF2500935AB8 /* Settings.swift in Sources */,
 				051886EC271A0B6A00935AB8 /* Date-Extension.swift in Sources */,
 				051886E42718AF2500935AB8 /* ConversionSelectionListView.swift in Sources */,
+				05F4DEBB2798757E00C5DAFF /* PowerUnits.swift in Sources */,
 				051886AD271762FB00935AB8 /* UnitConverterApp.swift in Sources */,
 				051886DA2718AB3D00935AB8 /* ConversionType.swift in Sources */,
 				051886D42718AA5900935AB8 /* VolumeUnits.swift in Sources */,

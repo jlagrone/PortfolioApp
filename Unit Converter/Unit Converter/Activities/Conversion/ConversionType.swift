@@ -19,26 +19,23 @@ enum ConversionType: Int, CaseIterable {
     case volume
     case mass
     case pressure
+    case energy
+    case power
 
    /// The `String` value associated with the conversion type
     var string: String {
+        var string = ""
         switch self {
-            case .mass:
-                return NSLocalizedString("Weight (Mass)",
-                                         comment: "ConversionType to string")
-            case .length:
-                return NSLocalizedString("Length (Distance)",
-                                         comment: "ConversionType to string")
-            case .temperature:
-                return NSLocalizedString("Temperature",
-                                         comment: "ConversionType to string")
-            case .volume:
-                return NSLocalizedString("Volume",
-                                         comment: "ConversionType to string")
-            case .pressure:
-                return NSLocalizedString("Pressure",
-                                         comment: "ConversionType to string")
+            case .mass: string = "Weight (Mass)"
+            case .length: string = "Length (Distance)"
+            case .temperature: string = "Temperature"
+            case .volume: string = "Volume"
+            case .pressure: string = "Pressure"
+            case .energy: string = "Energy"
+            case .power: string = "Power"
         }
+        return NSLocalizedString(string, comment: "ConversionType to string")
+
     }
 
     /// Converted rawValue Core Data interoperability
@@ -57,6 +54,8 @@ enum ConversionType: Int, CaseIterable {
             case .temperature: return TemperatureUnits.imageName
             case .mass: return MassUnits.imageName
             case .pressure: return PressureUnits.imageName
+            case .energy: return EnergyUnits.imageName
+            case .power: return PowerUnits.imageName
         }
     }
 }
