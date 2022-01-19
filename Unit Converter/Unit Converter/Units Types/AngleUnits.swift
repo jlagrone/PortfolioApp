@@ -1,32 +1,33 @@
 //
-//  EnergyUnits.swift
+//  AngleUnits.swift
 //  Unit Converter
 //
-//  Created by James LaGrone on 1/18/22.
+//  Created by James LaGrone on 1/19/22.
 //
 
 import Foundation
 import CoreData
 
-struct EnergyUnits: UnitProtocol {
-
-    static var imageName: String { "bolt" }
+struct AngleUnits: UnitProtocol {
+    #warning("This needs something different")
+    static var imageName: String { "location" }
 
     static var all: [Dimension] {
-        [UnitEnergy.kilojoules,
-         UnitEnergy.joules,
-         UnitEnergy.kilocalories,
-         UnitEnergy.calories,
-         UnitEnergy.kilowattHours]
+        [UnitAngle.degrees,
+         UnitAngle.radians,
+         UnitAngle.gradians,
+         UnitAngle.revolutions,
+         UnitAngle.arcMinutes,
+         UnitAngle.arcSeconds
+        ]
     }
 
-    static let sampleMeasurement = Measurement(value: 1000.0,
-                                               unit: UnitEnergy.joules)
+    static let sampleMeasurement = Measurement(value: 90, unit: UnitAngle.degrees)
 
     static func sampleConversion(context: NSManagedObjectContext? = nil) -> Conversion {
-        let resultUnit = UnitEnergy.kilowattHours
+        let resultUnit = UnitAngle.radians
         let result = sampleMeasurement.converted(to: resultUnit)
-        return Conversion(type: .energy,
+        return Conversion(type: .angle,
                           date: Date(),
                           inputUnit: sampleMeasurement.unit.symbol,
                           inputValue: sampleMeasurement.value,

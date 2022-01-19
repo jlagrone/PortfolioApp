@@ -19,7 +19,7 @@ protocol UnitProtocol {
 
     /// A unit-specific function for a sample conversion for use in SwiftUI previews
     /// - Returns: a Conversion from one unit to another
-    static func sampleConversion(context: NSManagedObjectContext) -> Conversion
+    static func sampleConversion(context: NSManagedObjectContext?) -> Conversion
 }
 
 extension UnitProtocol {
@@ -64,6 +64,10 @@ struct UnitProtocolHelper {
         }
 
         if let dimension = PowerUnits.dimension(of: symbol) {
+            return dimension
+        }
+
+        if let dimension = AngleUnits.dimension(of: symbol) {
             return dimension
         }
 

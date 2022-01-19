@@ -210,6 +210,7 @@ struct ConversionView: View {
             case .pressure: return UnitPressure.inchesOfMercury
             case .energy: return UnitEnergy.joules
             case .power: return UnitPower.horsepower
+            case .angle: return UnitAngle.degrees
         }
     }
 
@@ -223,6 +224,7 @@ struct ConversionView: View {
             case .pressure: return UnitPressure.millibars
             case .energy: return UnitEnergy.kilowattHours
             case .power: return UnitPower.kilowatts
+            case .angle: return UnitAngle.radians
         }
     }
 
@@ -236,6 +238,7 @@ struct ConversionView: View {
             case .pressure: return PressureUnits.all
             case .energy: return EnergyUnits.all
             case .power: return PowerUnits.all
+            case .angle: return AngleUnits.all
         }
     }
 

@@ -28,7 +28,7 @@ struct PowerUnits: UnitProtocol {
     static let sampleMeasurement = Measurement(value: 120,
                                                unit: UnitPower.horsepower)
 
-    static func sampleConversion(context: NSManagedObjectContext) -> Conversion {
+    static func sampleConversion(context: NSManagedObjectContext? = nil) -> Conversion {
         let resultUnit = UnitPower.megawatts
         let result = sampleMeasurement.converted(to: resultUnit)
         return Conversion(type: .power,

@@ -32,7 +32,7 @@ struct PressureUnits: UnitProtocol {
 
    static let sampleMeasurement = Measurement(value: Double.pi, unit: UnitPressure.bars)
 
-   static func sampleConversion(context: NSManagedObjectContext) -> Conversion {
+   static func sampleConversion(context: NSManagedObjectContext? = nil) -> Conversion {
       let resultUnit = UnitPressure.millibars
       let result = sampleMeasurement.converted(to: resultUnit)
       return Conversion(type: ConversionType.pressure,

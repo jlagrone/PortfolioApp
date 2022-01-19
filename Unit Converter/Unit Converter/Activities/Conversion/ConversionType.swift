@@ -21,6 +21,7 @@ enum ConversionType: Int, CaseIterable {
     case pressure
     case energy
     case power
+    case angle
 
    /// The `String` value associated with the conversion type
     var string: String {
@@ -33,6 +34,7 @@ enum ConversionType: Int, CaseIterable {
             case .pressure: string = "Pressure"
             case .energy: string = "Energy"
             case .power: string = "Power"
+            case .angle: string = "Angle"
         }
         return NSLocalizedString(string, comment: "ConversionType to string")
 
@@ -56,6 +58,7 @@ enum ConversionType: Int, CaseIterable {
             case .pressure: return PressureUnits.imageName
             case .energy: return EnergyUnits.imageName
             case .power: return PowerUnits.imageName
+            case .angle: return AngleUnits.imageName
         }
     }
 }

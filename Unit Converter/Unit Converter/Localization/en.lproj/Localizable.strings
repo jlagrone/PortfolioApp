@@ -39,6 +39,7 @@
 "Pressure" = "Pressure";
 "Energy" = "Energy";
 "Power" = "Power";
+"Angle" = "Angle";
 
 "Tap to convert %@" = "Tap to convert %@";
 
