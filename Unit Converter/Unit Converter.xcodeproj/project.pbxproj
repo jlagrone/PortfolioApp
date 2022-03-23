@@ -39,6 +39,7 @@
 		0575872C27EA436300681325 /* ListingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0575872B27EA436300681325 /* ListingRow.swift */; };
 		0575872E27EA443F00681325 /* ListingGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0575872D27EA443F00681325 /* ListingGridItem.swift */; };
 		0575873027EBB87B00681325 /* SpeedUnits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0575872F27EBB87B00681325 /* SpeedUnits.swift */; };
+		0575873227EBBDAF00681325 /* ElectricChargeUnits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0575873127EBBDAF00681325 /* ElectricChargeUnits.swift */; };
 		05B9A1DD2724A04C0093300C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 05B9A1DF2724A04C0093300C /* Localizable.strings */; };
 		05CC346527444FAC003BCAB8 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CC346427444FAC003BCAB8 /* Logging.swift */; };
 		05F4DEB927975E2100C5DAFF /* EnergyUnits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4DEB827975E2100C5DAFF /* EnergyUnits.swift */; };
@@ -97,6 +98,7 @@
 		0575872B27EA436300681325 /* ListingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingRow.swift; sourceTree = "<group>"; };
 		0575872D27EA443F00681325 /* ListingGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ListingGridItem.swift; path = "Unit Converter/ListingGridItem.swift"; sourceTree = SOURCE_ROOT; };
 		0575872F27EBB87B00681325 /* SpeedUnits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedUnits.swift; sourceTree = "<group>"; };
+		0575873127EBBDAF00681325 /* ElectricChargeUnits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectricChargeUnits.swift; sourceTree = "<group>"; };
 		05B9A1DE2724A04C0093300C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		05B9A1E02724A04E0093300C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		05CC346427444FAC003BCAB8 /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = SOURCE_ROOT; };
@@ -187,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				05F4DEBC2798A57900C5DAFF /* AngleUnits.swift */,
+				0575873127EBBDAF00681325 /* ElectricChargeUnits.swift */,
 				05F4DEB827975E2100C5DAFF /* EnergyUnits.swift */,
 				051886D02718AA5800935AB8 /* LengthUnits.swift */,
 				051886CF2718AA5800935AB8 /* MassUnits.swift */,
@@ -424,6 +427,7 @@
 				051886D62718AA5900935AB8 /* LengthUnits.swift in Sources */,
 				05CC346527444FAC003BCAB8 /* Logging.swift in Sources */,
 				051886CB271885A800935AB8 /* Conversion-CoreDataHelpers.swift in Sources */,
+				0575873227EBBDAF00681325 /* ElectricChargeUnits.swift in Sources */,
 				05F76D1527E912BC00307FFC /* Color-Extensions.swift in Sources */,
 				051886D72718AA5900935AB8 /* PressureUnits.swift in Sources */,
 				051886E32718AF2500935AB8 /* ConversionView.swift in Sources */,

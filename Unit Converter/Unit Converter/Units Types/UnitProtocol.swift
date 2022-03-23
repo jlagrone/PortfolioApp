@@ -75,6 +75,10 @@ struct UnitProtocolHelper {
           return dimension
        }
 
+       if let dimension = ElectricChargeUnits.dimension(of: symbol) {
+          return dimension
+       }
+
         return nil
     }
 }

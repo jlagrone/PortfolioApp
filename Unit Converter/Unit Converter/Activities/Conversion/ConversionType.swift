@@ -23,6 +23,7 @@ enum ConversionType: Int, CaseIterable, Identifiable {
    case power
    case angle
    case speed
+   case electricCharge
 
    /// The `String` value associated with the conversion type
    var string: String {
@@ -37,6 +38,7 @@ enum ConversionType: Int, CaseIterable, Identifiable {
          case .power: string = "Power"
          case .angle: string = "Angle"
          case .speed: string = "Speed"
+         case .electricCharge: string = "Electric Charge"
       }
       return NSLocalizedString(string, comment: "ConversionType to string")
 
@@ -66,6 +68,7 @@ enum ConversionType: Int, CaseIterable, Identifiable {
          case .power: return PowerUnits.imageName
          case .angle: return AngleUnits.imageName
          case .speed: return SpeedUnits.imageName
+         case .electricCharge: return ElectricChargeUnits.imageName
       }
    }
 }
