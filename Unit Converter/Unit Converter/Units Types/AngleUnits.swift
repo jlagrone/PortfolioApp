@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 struct AngleUnits: UnitProtocol {
-    #warning("This needs something different")
+    #warning("This needs different image")
     static var imageName: String { "location" }
 
     static var all: [Dimension] {

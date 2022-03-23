@@ -211,6 +211,7 @@ struct ConversionView: View {
             case .energy: return UnitEnergy.joules
             case .power: return UnitPower.horsepower
             case .angle: return UnitAngle.degrees
+            case .speed: return UnitSpeed.kilometersPerHour
         }
     }
 
@@ -225,6 +226,7 @@ struct ConversionView: View {
             case .energy: return UnitEnergy.kilowattHours
             case .power: return UnitPower.kilowatts
             case .angle: return UnitAngle.radians
+            case .speed: return UnitSpeed.milesPerHour
         }
     }
 
@@ -239,6 +241,7 @@ struct ConversionView: View {
             case .energy: return EnergyUnits.all
             case .power: return PowerUnits.all
             case .angle: return AngleUnits.all
+            case .speed: return SpeedUnits.all
         }
     }
 

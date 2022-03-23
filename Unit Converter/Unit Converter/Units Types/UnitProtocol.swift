@@ -71,6 +71,10 @@ struct UnitProtocolHelper {
             return dimension
         }
 
+       if let dimension = SpeedUnits.dimension(of: symbol) {
+          return dimension
+       }
+
         return nil
     }
 }

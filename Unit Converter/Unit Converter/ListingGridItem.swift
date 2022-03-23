@@ -18,7 +18,6 @@ struct ListingGridItem: View {
             Text(type.string)
                .font(.caption2)
          }
-//         .frame(width: 70, height: 35, alignment: .center)
          .fixedSize()
          .foregroundColor(Color.accentColor)
          .accessibilityHint("Tap to convert \(type.string)")
