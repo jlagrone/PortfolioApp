@@ -12,7 +12,7 @@ import SwiftUI
 ///
 /// - Precondition: The computed property `imageName` requires the presence of LengthUnits, VolumeUnits,
 /// TemperatureUnits, MassUnits, and PressureUnits for their associated SF Symbols name
-enum ConversionType: Int, CaseIterable {
+enum ConversionType: Int, CaseIterable, Identifiable {
 
     case length
     case temperature
@@ -44,6 +44,10 @@ enum ConversionType: Int, CaseIterable {
     var int16Value: Int16 {
         return Int16(self.rawValue)
     }
+
+   var id: Int {
+      self.rawValue
+   }
 
    /// The SF Symbols of the conversion type
    /// - Precondition: `LengthUnits`, `VolumeUnits`,

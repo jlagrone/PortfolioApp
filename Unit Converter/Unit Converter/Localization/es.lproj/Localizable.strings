@@ -33,9 +33,9 @@
 
 /* Convert tab */
 "Unit Converter" = "Convertidor de unidades";
-"Length (Distance)" = "Longitud (distancia)";
+"Length (Distance)" = "Longitud";
 "Temperature" = "Temperatura";
-"Weight (Mass)" = "Peso (masa)";
+"Weight (Mass)" = "Peso/masa";
 "Volume" = "Volumen";
 "Pressure" = "Presión";
 "Energy" = "Energía";

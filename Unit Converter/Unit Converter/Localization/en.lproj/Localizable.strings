@@ -32,9 +32,9 @@
 
 /* Convert tab */
 "Unit Converter" = "Unit Converter";
-"Length (Distance)" = "Length (Distance)";
+"Length (Distance)" = "Length";
 "Temperature" = "Temperature";
-"Weight (Mass)" = "Weight (Mass)";
+"Weight (Mass)" = "Weight/Mass";
 "Volume" = "Volume";
 "Pressure" = "Pressure";
 "Energy" = "Energy";

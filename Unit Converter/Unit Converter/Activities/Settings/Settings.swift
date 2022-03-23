@@ -20,33 +20,50 @@ final class SettingsDefaults: ObservableObject {
    private let scientificNotationKey: String = prefix + "Notation"
    private let significantDigitsKey: String = prefix + "SignificantDigits"
    private let fractionPrecisionKey: String = prefix + "FractionPrecision"
+   private let homeViewKey: String = prefix + "HomeView"
+
+   @Published var refresh: Bool {
+      didSet {
+         os_log("Refresh", log: log_settings, type: .info)
+      }
+   }
 
    // Defaults under control by user
    @Published var useScientificNotation: Bool {
       didSet {
          UserDefaults.standard.setValue(useScientificNotation, forKey: scientificNotationKey)
-         os_log("Use Scientific Notation set to %@", log: log_settings, type: .info, String(useScientificNotation))
+         os_log("Use Scientific Notation set to '%@'", log: log_settings, type: .info, String(useScientificNotation))
       }
    }
 
    /// Use decimal places or significant digits
    @Published var outputFormat: OutputFormat {
-      didSet { UserDefaults.standard.setValue(outputFormat.rawValue, forKey: outputFormatKey)
-         os_log("Output Format set to %@", log: log_settings, type: .info, outputFormat.string)
+      didSet {
+         UserDefaults.standard.setValue(outputFormat.rawValue, forKey: outputFormatKey)
+         os_log("Output Format set to '%@'", log: log_settings, type: .info, outputFormat.string)
       }
    }
 
    /// Number of significant digits
    @Published var significantDigits: Double {
-      didSet { UserDefaults.standard.setValue(significantDigits, forKey: significantDigitsKey)
-         os_log("Significant Digits set to %.0f", log: log_settings, type: .info, significantDigits)
+      didSet {
+         UserDefaults.standard.setValue(significantDigits, forKey: significantDigitsKey)
+         os_log("Significant Digits set to '%.0f'", log: log_settings, type: .info, significantDigits)
       }
    }
 
    /// Number of digits after decimal place
    @Published var fractionPrecision: Double {
-      didSet { UserDefaults.standard.setValue(fractionPrecision, forKey: fractionPrecisionKey)
-         os_log("Fraction Precision set to %.0f", log: log_settings, type: .info, fractionPrecision)
+      didSet {
+         UserDefaults.standard.setValue(fractionPrecision, forKey: fractionPrecisionKey)
+         os_log("Fraction Precision set to '%.0f'", log: log_settings, type: .info, fractionPrecision)
+      }
+   }
+
+   @Published var homeViewType: HomeViewType {
+      didSet {
+         UserDefaults.standard.setValue(homeViewType.rawValue, forKey: homeViewKey)
+         os_log("Home View Type set to '%@'", log: log_settings, type: .info, homeViewType.string)
       }
    }
 
@@ -55,7 +72,8 @@ final class SettingsDefaults: ObservableObject {
          outputFormatKey: OutputFormat.decimalPlaces.rawValue,
          scientificNotationKey: false,
          significantDigitsKey: 3.0,
-         fractionPrecisionKey: 3.0
+         fractionPrecisionKey: 3.0,
+         homeViewKey: HomeViewType.grid.rawValue
       ])
 
       self.useScientificNotation = UserDefaults.standard.bool(forKey: scientificNotationKey)
@@ -65,7 +83,18 @@ final class SettingsDefaults: ObservableObject {
 
       self.fractionPrecision = UserDefaults.standard.double(forKey: fractionPrecisionKey)
       self.significantDigits = UserDefaults.standard.double(forKey: significantDigitsKey)
+
+      let homeViewtypeRawValue = UserDefaults.standard.string(forKey: homeViewKey)
+      self.homeViewType = HomeViewType(rawValue: homeViewtypeRawValue ?? "List") ?? .list
+
+      self.refresh = false
    }
+
+   convenience init(with homeView: HomeViewType) {
+      self.init()
+      self.homeViewType = homeView
+   }
+
 }
 
 enum OutputFormat: Int, CaseIterable, Identifiable {
@@ -82,4 +111,14 @@ enum OutputFormat: Int, CaseIterable, Identifiable {
       Self.strings[self.rawValue]
    }
    var id: Int { self.rawValue }
+}
+
+enum HomeViewType: String, CaseIterable, Identifiable {
+   case list, grid
+
+   var string: String {
+      String(describing: self.rawValue).capitalized
+   }
+
+   var id: Int {self.hashValue}
 }
