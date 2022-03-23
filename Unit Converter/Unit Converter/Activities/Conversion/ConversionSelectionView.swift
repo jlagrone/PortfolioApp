@@ -16,13 +16,7 @@ struct ConversionSelectionView: View {
    /// A static string constant for use in identifying the Tab selected in ContentView
    static let tag: String? = "ConversionSelectionView"
 
-   private let accentColor = Color.accentColor
-
-   // Bool for showing the Settings view from tool bar button
-   @State private var showingSettings: Bool = false
-
    var body: some View {
-      NavigationView {
          Group {
             if userSettings.homeViewType == .grid {
                gridView
@@ -31,12 +25,6 @@ struct ConversionSelectionView: View {
                listView
             }
          }
-         .background(Color.systemGroupedBackground.ignoresSafeArea())
-         .navigationTitle("Unit Converter")
-         .navigationBarItems(trailing: showSettingsButton)
-      }
-      .accentColor(accentColor)
-      .foregroundColor(accentColor)
    }
 
    let columns = [
@@ -58,25 +46,6 @@ struct ConversionSelectionView: View {
       List {
          ForEach(ConversionType.allCases, content: ListingRow.init)
       }
-   }
-
-   var showSettingsButton: some View {
-      Button(action: toggleShowSettings) {
-         Image(systemName: "gearshape")
-      }
-      .accessibilityLabel("Open Settings")
-      .sheet(isPresented: $showingSettings, onDismiss: onDismissSettings) {
-         SettingsView()
-      }
-   }
-
-   func toggleShowSettings() {
-      showingSettings.toggle()
-   }
-
-   func onDismissSettings() {
-      print("Dismissing")
-      userSettings.refresh.toggle()
    }
 
 }
